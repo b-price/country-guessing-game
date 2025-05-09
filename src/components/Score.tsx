@@ -29,6 +29,25 @@ export const Score = ({ scores, onRestart }: ScoreProps) => {
         }
     }
 
+    const exportScore = () => {
+        const scoreData = {
+            totalScore: score.toFixed(2),
+            rounds: scores.map(s => ({
+                guess: s.guess.name,
+                correct: s.correct.name,
+                isCorrect: s.isCorrect
+            }))
+        };
+        const json = JSON.stringify(scoreData, null, 2);
+        const blob = new Blob([json], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `game_score_${new Date().toISOString()}.json`;
+        link.click();
+        URL.revokeObjectURL(url);
+    };
+
     return (
         <Card>
             <Card.Header>
@@ -45,7 +64,7 @@ export const Score = ({ scores, onRestart }: ScoreProps) => {
             </Card.Body>
             <Card.Footer>
                 <Button className="me-3" variant="primary" onClick={onRestart}>New Game</Button>
-                <Button variant="secondary" onClick={onRestart}>Save Score</Button>
+                <Button variant="secondary" onClick={exportScore}>Save Score</Button>
             </Card.Footer>
         </Card>
     )
