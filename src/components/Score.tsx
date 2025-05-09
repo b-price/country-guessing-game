@@ -1,14 +1,19 @@
+// src/components/Score.tsx
 import {Button, Card, Row} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {RoundScore} from "./Game.tsx";
+
 
 interface ScoreProps {
     scores: RoundScore[];
     onRestart: () => void;
 }
 
+
 export const Score = ({ scores, onRestart }: ScoreProps) => {
     const [score, setScore] = useState(0);
+    const [scoreSaved, setScoreSaved] = useState(false);
+
     useEffect(() => {
         let correct = 0;
         scores.forEach(s => {
@@ -16,6 +21,7 @@ export const Score = ({ scores, onRestart }: ScoreProps) => {
         });
         setScore((correct / scores.length) * 100);
     }, [scores])
+
 
     const getScoreIcon = (s: RoundScore) => {
         if (s.isCorrect) {
@@ -29,24 +35,24 @@ export const Score = ({ scores, onRestart }: ScoreProps) => {
         }
     }
 
-    const exportScore = () => {
+    const saveScore = () => {
+        // Here you would implement the actual score saving logic
+        // For now, we'll just simulate it with a state change
         const scoreData = {
-            totalScore: score.toFixed(2),
-            rounds: scores.map(s => ({
-                guess: s.guess.name,
-                correct: s.correct.name,
-                isCorrect: s.isCorrect
-            }))
+            score: score,
+            date: new Date().toISOString(),
+            rounds: scores.length,
+            correct: scores.filter(s => s.isCorrect).length
         };
-        const json = JSON.stringify(scoreData, null, 2);
-        const blob = new Blob([json], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `game_score_${new Date().toISOString()}.json`;
-        link.click();
-        URL.revokeObjectURL(url);
-    };
+
+        // Save to localStorage as an example
+        const savedScores = JSON.parse(localStorage.getItem('countryGameScores') || '[]');
+        savedScores.push(scoreData);
+        localStorage.setItem('countryGameScores', JSON.stringify(savedScores));
+
+        setScoreSaved(true);
+    }
+
 
     return (
         <Card>
@@ -64,7 +70,13 @@ export const Score = ({ scores, onRestart }: ScoreProps) => {
             </Card.Body>
             <Card.Footer>
                 <Button className="me-3" variant="primary" onClick={onRestart}>New Game</Button>
-                <Button variant="secondary" onClick={exportScore}>Save Score</Button>
+                <Button
+                    variant="secondary"
+                    onClick={saveScore}
+                    disabled={scoreSaved}
+                >
+                    {scoreSaved ? "Score Saved!" : "Save Score"}
+                </Button>
             </Card.Footer>
         </Card>
     )
