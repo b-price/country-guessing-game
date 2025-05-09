@@ -1,0 +1,14 @@
+{
+  "files": [],
+  "compilerOptions": {
+    "jsx": "react-jsx",          // or "react" for older React versions
+    "module": "ESNext",          // or "commonjs", depending on your setup
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": true,     // optional but recommended with React + TypeScript
+  },
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}
