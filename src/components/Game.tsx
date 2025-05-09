@@ -178,7 +178,7 @@ export const Game = () => {
             )}
             {gameActive && (
                 <>
-                    <Row>
+                    <Row className="mb-3 position-sticky top-10 z-1">
                         <Col>
                             <h3>{currentCountry?.name} {currentCountry.flagUnicode}</h3>
                         </Col>
