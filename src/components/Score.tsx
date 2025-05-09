@@ -1,6 +1,7 @@
-import {Button, Card, Row} from "react-bootstrap";
+import {Button, Card, Dropdown, Row} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {RoundScore} from "./Game.tsx";
+import * as htmlToImage from 'html-to-image';
 
 interface ScoreProps {
     scores: RoundScore[];
@@ -29,7 +30,7 @@ export const Score = ({ scores, onRestart }: ScoreProps) => {
         }
     }
 
-    const exportScore = () => {
+    const saveJSON = () => {
         const scoreData = {
             totalScore: score.toFixed(2),
             rounds: scores.map(s => ({
@@ -48,23 +49,65 @@ export const Score = ({ scores, onRestart }: ScoreProps) => {
         URL.revokeObjectURL(url);
     };
 
+    const saveImage = () => {
+        htmlToImage
+            .toPng(document.getElementById('imageArea') as HTMLElement, {backgroundColor: '#FFF'})
+            .then((dataUrl) => {
+                const link = document.createElement('a');
+                link.download = `game_score_${new Date().toISOString()}.png`;
+                link.href = dataUrl;
+                link.click();
+                URL.revokeObjectURL(dataUrl);
+            });
+    }
+
+    const saveText = () => {
+        let text =
+            `### Country Guessing Game Results ###
+*** Final Score: ${score.toFixed(2)}% ***
+`;
+        scores.forEach(((score, i) => {
+            text += `Round ${i + 1}: Answer: ${score.correct.name} Guess: ${score.guess.name} ${score.isCorrect ? "✓" : "✖"}
+`;
+        }));
+        const blob = new Blob([text], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `game_score_${new Date().toISOString()}.txt`;
+        link.click();
+        URL.revokeObjectURL(url);
+    }
+
     return (
         <Card>
-            <Card.Header>
-                <Card.Title className="mt-2">
-                    <h3>Score: <span className={score > 80 ? 'text-success' : score > 50 ? 'text-warning' : 'text-danger'}>{score.toFixed(2)}%</span></h3>
-                </Card.Title>
-            </Card.Header>
-            <Card.Body>
-                {scores?.map((s, i) => (
-                    <Row key={i}>
-                        <p><strong>Round {i + 1}: </strong>{s.correct.flagUnicode} {s.correct.name}: {getScoreIcon(s)}</p>
-                    </Row>
-                ))}
-            </Card.Body>
-            <Card.Footer>
-                <Button className="me-3" variant="primary" onClick={onRestart}>New Game</Button>
-                <Button variant="secondary" onClick={exportScore}>Save Score</Button>
+            <div id="imageArea">
+                <Card.Header>
+                    <Card.Title className="mt-2">
+                        <h3>Score: <span className={score > 80 ? 'text-success' : score > 50 ? 'text-warning' : 'text-danger'}>{score.toFixed(2)}%</span></h3>
+                    </Card.Title>
+                </Card.Header>
+                <Card.Body>
+                    {scores?.map((s, i) => (
+                        <Row key={i}>
+                            <p><strong>Round {i + 1}: </strong>{s.correct.flagUnicode} {s.correct.name}: {getScoreIcon(s)}</p>
+                        </Row>
+                    ))}
+                </Card.Body>
+            </div>
+
+            <Card.Footer className="d-flex align-items-center">
+                <Button className="me-3" variant="primary" onClick={onRestart}>+ New Game</Button>
+                <Dropdown>
+                    <Dropdown.Toggle variant="secondary">
+                        ↓ Save Score
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        <Dropdown.Item onClick={saveImage}>As Image</Dropdown.Item>
+                        <Dropdown.Item onClick={saveText}>As Text</Dropdown.Item>
+                        <Dropdown.Item onClick={saveJSON}>As JSON</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
             </Card.Footer>
         </Card>
     )
