@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react";
-import {Alert, Button, Col, Container, Form, InputGroup, Row} from "react-bootstrap";
+import {Alert, Button, Card, Col, Container, Form, InputGroup, Row} from "react-bootstrap";
 import MapChart from "./Map.tsx";
 import {Score} from "./Score.tsx";
 import countryData from '../data/countries.json' with { type: 'json' };
@@ -18,6 +18,15 @@ export interface RoundScore {
     isCorrect: boolean;
 }
 
+interface ContinentSelectionMap {
+    northAmerica: 'North America',
+    southAmerica: 'South America',
+    asia: 'Asia',
+    oceania: 'Oceania',
+    africa: 'Africa',
+    europe: 'Europe'
+}
+
 export const Game = () => {
     const [countries, setCountries] = useState<Country[]>([]);
     const [currentCountry, setCurrentCountry] = useState<Country>(countryData[0]);
@@ -31,11 +40,14 @@ export const Game = () => {
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [round, setRound] = useState<number>(0);
     const [selectedContinents, setSelectedContinents] = useState<Set<string>>(new Set());
+    const [allContinents, setAllContinents] = useState<string[]>([])
 
     // Get unique continents on component mount
     useEffect(() => {
         const uniqueContinents = [...new Set(countryData.map(c => c.continent))];
-        setSelectedContinents(new Set(uniqueContinents));
+        const formattedContinents = uniqueContinents.map(continent => getContinentString(continent as keyof ContinentSelectionMap));
+        setAllContinents(formattedContinents);
+        setSelectedContinents(new Set(formattedContinents));
     }, []);
 
     function getRandomUniqueIntegers(x: number, min: number, max: number) {
@@ -56,6 +68,21 @@ export const Game = () => {
         }
 
         return available.slice(0, count);
+    }
+
+    // Maps 'countries.json' format string to 'world-continents.topo.json' format
+    const getContinentString = (continent: keyof ContinentSelectionMap) => {
+        const continentStringMap = {
+            northAmerica: 'North America',
+            southAmerica: 'South America',
+            asia: 'Asia',
+            oceania: 'Oceania',
+            africa: 'Africa',
+            europe: 'Europe',
+            default: "None"
+        }
+
+        return continentStringMap[continent] || continentStringMap.default;
     }
 
     const onGameStart = () => {
@@ -104,18 +131,9 @@ export const Game = () => {
                 return country.popRank / filteredCountries.length < (100 - popBottomPercent) / 100;
             })
         }
-        if (selectedContinents.size > 0) {
-            filteredCountries = filteredCountries.filter(country =>
-                selectedContinents.has(country.continent)
-            );
-        }
-
-        // Enhanced error handling
-        if (filteredCountries.length === 0) {
-            setError(true);
-            setErrorMessage('Error: No countries match the selected filters.');
-            return false;
-        }
+        filteredCountries = filteredCountries.filter(country =>
+            selectedContinents.has(getContinentString(country.continent as keyof ContinentSelectionMap))
+        );
 
         const indexes: number[] = getRandomUniqueIntegers(countryCount, 0, filteredCountries.length - 1);
         if (indexes.length > 0) {
@@ -174,7 +192,6 @@ export const Game = () => {
                                     onChange={(e) => setCountryCount(parseInt(e.target.value))}
                                 />
                             </Form.Group>
-
                         </Col>
                         <Col>
                             <Form.Group controlId="filterOutTop">
@@ -187,7 +204,7 @@ export const Game = () => {
                                     />
                                     <InputGroup.Text>%</InputGroup.Text>
                                 </InputGroup>
-                                <Form.Label>% of Countries in Population</Form.Label>
+                                <Form.Label>of Countries by Population</Form.Label>
                             </Form.Group>
                         </Col>
                         <Col>
@@ -201,30 +218,64 @@ export const Game = () => {
                                     />
                                     <InputGroup.Text>%</InputGroup.Text>
                                 </InputGroup>
-                                <Form.Label>of Countries in Population</Form.Label>
+                                <Form.Label>of Countries by Population</Form.Label>
                             </Form.Group>
                         </Col>
                     </Row>
                     <Row className="my-3">
                         <Col>
-                            <Form.Group controlId="continentFilter">
-                                <Form.Label>Filter by Continent</Form.Label>
-                                <div style={{ height: '300px', width: '100%' }}>
-                                    <ContinentSelectionMap
-                                        selectedContinents={selectedContinents}
-                                        onContinentToggle={toggleContinent}
-                                    />
-                                </div>
-                                <div className="mt-2">
-                                    <strong>Selected continents: </strong>
-                                    {selectedContinents.size === [...new Set(countryData.map(c => c.continent))].length
-                                        ? 'All'
-                                        : Array.from(selectedContinents).join(', ') || 'None'}
-                                </div>
-                            </Form.Group>
+                            <Card>
+                                <Form.Group controlId="continentFilter">
+                                    <Card.Header>
+                                        <Form.Label className="mb-0">Filter by Continent</Form.Label>
+                                    </Card.Header>
+                                    <Card.Body>
+                                        <Row>
+                                            <Col xs="auto">
+                                                <div className="mt-2">
+                                                    <strong>Selected continents: </strong>
+                                                    <div className="my-2">
+                                                        <Button
+                                                            variant="outline-primary"
+                                                            size="sm"
+                                                            className="me-3"
+                                                            onClick={() => setSelectedContinents(new Set(allContinents))}
+                                                        >
+                                                            All
+                                                        </Button>
+                                                        <Button
+                                                            variant="outline-secondary"
+                                                            size="sm"
+                                                            onClick={() => setSelectedContinents(new Set([]))}
+                                                        >
+                                                            None
+                                                        </Button>
+                                                    </div>
+
+                                                    {selectedContinents.size === allContinents.length
+                                                        ? <div>All</div>
+                                                        : (
+                                                            Array.from(selectedContinents).map((c, i) =>
+                                                                <div key={i}>{c}</div>
+                                                            )
+                                                        )}
+                                                </div>
+                                            </Col>
+                                            <Col xs={11} md={7}>
+                                                <div className="">
+                                                    <ContinentSelectionMap
+                                                        selectedContinents={selectedContinents}
+                                                        onContinentToggle={toggleContinent}
+                                                    />
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    </Card.Body>
+                                </Form.Group>
+                            </Card>
                         </Col>
                     </Row>
-                    <Button variant="primary" onClick={onGameStart}>Start Game</Button>
+                    <Button variant="primary" size="lg" onClick={onGameStart}>Start Game</Button>
                 </Form>
             )}
             {gameActive && (
@@ -238,7 +289,7 @@ export const Game = () => {
                         </Col>
                     </Row>
                     <Row>
-                        <MapChart onSelection={onMapSelection} />
+                        <MapChart onSelection={onMapSelection}/>
                     </Row>
                 </>
             )}
