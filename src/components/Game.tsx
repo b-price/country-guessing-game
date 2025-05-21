@@ -2,6 +2,7 @@ import {useState} from "react";
 import {Alert, Button, Col, Container, Form, InputGroup, Row} from "react-bootstrap";
 import MapChart from "./Map.tsx";
 import {Score} from "./Score.tsx";
+import ContinentSelector from "./ContinentSelector.tsx";
 import countryData from '../data/countries.json' with { type: 'json' };
 
 export interface Country {
@@ -29,6 +30,9 @@ export const Game = () => {
     const [error, setError] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [round, setRound] = useState<number>(0);
+    const [selectedContinents, setSelectedContinents] = useState<string[]>(
+        ["Africa", "Asia", "Europe", "North America", "South America", "Oceania", "Antarctica"]
+    );
 
     function getRandomUniqueIntegers(x: number, min: number, max: number) {
         if (min > max || x <= 0) return [];
@@ -58,6 +62,25 @@ export const Game = () => {
         }
     }
 
+    const handleContinentToggle = (continent: string) => {
+        setSelectedContinents(prev => {
+            if (prev.includes(continent)) {
+                // If all continents would be deselected, show error
+                if (prev.length === 1) {
+                    setError(true);
+                    setErrorMessage('Error: At least one continent must be selected.');
+                    return prev;
+                }
+                return prev.filter(c => c !== continent);
+            } else {
+                setError(false);
+                setErrorMessage('');
+                return [...prev, continent];
+            }
+        });
+    };
+
+
     const calculateCountries = () => {
         if (popTopPercent < 0 || popTopPercent > 100 || isNaN(popTopPercent)) {
             setError(true);
@@ -70,6 +93,14 @@ export const Game = () => {
             return false;
         }
         let filteredCountries = [...countryData];
+
+        // Apply continent filter
+        if (selectedContinents.length > 0 && selectedContinents.length < 7) {
+            filteredCountries = filteredCountries.filter((country) =>
+                selectedContinents.includes(country.continent)
+            );
+        }
+
         if (countryCount < 1 || countryCount > filteredCountries.length || isNaN(countryCount)) {
             setError(true);
             setErrorMessage(`Error: Enter a valid country amount (1-${filteredCountries.length}).`)
@@ -85,6 +116,14 @@ export const Game = () => {
                 return country.popRank / filteredCountries.length < (100 - popBottomPercent) / 100;
             })
         }
+
+        // Check if we have any countries after all filters
+        if (filteredCountries.length === 0) {
+            setError(true);
+            setErrorMessage('Error: No countries match the selected filters. Please adjust your selection.');
+            return false;
+        }
+
         const indexes: number[] = getRandomUniqueIntegers(countryCount, 0, filteredCountries.length - 1);
         if (indexes.length > 0) {
             const newCountries: Country[] = [];
@@ -173,7 +212,20 @@ export const Game = () => {
                             </Form.Group>
                         </Col>
                     </Row>
-                    <Button variant="primary" onClick={onGameStart}>Start Game</Button>
+
+                    <Row className="mt-4">
+                        <Col>
+                            <Form.Group controlId="continentFilter">
+                                <Form.Label>Filter by Continent</Form.Label>
+                                <ContinentSelector
+                                    selectedContinents={selectedContinents}
+                                    onContinentToggle={handleContinentToggle}
+                                />
+                            </Form.Group>
+                        </Col>
+                    </Row>
+
+                    <Button variant="primary" onClick={onGameStart} className="mt-3">Start Game</Button>
                 </Form>
             )}
             {gameActive && (
