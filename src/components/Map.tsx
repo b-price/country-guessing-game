@@ -1,4 +1,4 @@
-import React, { JSX, useState } from "react"
+import { JSX, useState } from "react"
 import { ComposableMap, Geographies, Geography, ZoomableGroup } from "react-simple-maps"
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"
@@ -17,8 +17,8 @@ export default function MapChart({ onSelection }: MapProps): JSX.Element {
     };
 
     return (
-        <ComposableMap>
-            <ZoomableGroup center={[0, 0]}>
+        <ComposableMap width={820} height={450}>
+            <ZoomableGroup center={[22, 8]}>
                 <Geographies geography={geoUrl}>
                     {({ geographies }) =>
                         geographies.map((geo) => {

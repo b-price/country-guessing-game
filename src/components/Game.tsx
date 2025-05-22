@@ -262,7 +262,7 @@ export const Game = () => {
                                                 </div>
                                             </Col>
                                             <Col xs={11} md={7}>
-                                                <div className="">
+                                                <div className="p-0">
                                                     <ContinentSelectionMap
                                                         selectedContinents={selectedContinents}
                                                         onContinentToggle={toggleContinent}
@@ -279,19 +279,15 @@ export const Game = () => {
                 </Form>
             )}
             {gameActive && (
-                <>
-                    <Row className="mb-3 position-sticky top-10 z-1">
-                        <Col>
-                            <h3>{currentCountry?.name} {currentCountry.flagUnicode}</h3>
-                        </Col>
-                        <Col>
-                            <h4 id="roundDisplay">Round {round + 1}/{countryCount}</h4>
-                        </Col>
-                    </Row>
-                    <Row>
+                <Card className="mb-3">
+                    <Card.Header className="d-flex align-items-center justify-content-between pb-0">
+                        <h3>{currentCountry?.name} {currentCountry.flagUnicode}</h3>
+                        <h4 id="roundDisplay">Round {round + 1}/{countryCount}</h4>
+                    </Card.Header>
+                    <Card.Body className="p-0">
                         <MapChart onSelection={onMapSelection}/>
-                    </Row>
-                </>
+                    </Card.Body>
+                </Card>
             )}
             {!gameActive && gameOver && (
                 <Score scores={scores} onRestart={onGameRestart}/>

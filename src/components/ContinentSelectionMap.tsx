@@ -1,4 +1,4 @@
-import React, { JSX } from "react";
+import { JSX } from "react";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 
 const geoUrl = "https://code.highcharts.com/mapdata/custom/world-continents.topo.json";
@@ -21,7 +21,7 @@ export default function ContinentSelectionMap({
     };
 
     return (
-        <ComposableMap>
+        <ComposableMap width={800} height={480}>
             <Geographies geography={geoUrl}>
                 {({ geographies }) =>
                     geographies.map((geo) => {

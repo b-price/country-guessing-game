@@ -1,855 +1,9 @@
 [
   {
-    "name": "India",
-    "popRank": 1,
-    "continent": "asia",
-    "flagUnicode": "🇮🇳"
-  },
-  {
-    "name": "China",
-    "popRank": 2,
-    "continent": "asia",
-    "flagUnicode": "🇨🇳"
-  },
-  {
-    "name": "United States of America",
-    "popRank": 3,
-    "continent": "northAmerica",
-    "flagUnicode": "🇺🇸"
-  },
-  {
-    "name": "Indonesia",
-    "popRank": 4,
-    "continent": "oceania",
-    "flagUnicode": "🇮🇩"
-  },
-  {
-    "name": "Pakistan",
-    "popRank": 5,
-    "continent": "asia",
-    "flagUnicode": "🇵🇰"
-  },
-  {
-    "name": "Nigeria",
-    "popRank": 6,
-    "continent": "africa",
-    "flagUnicode": "🇳🇬"
-  },
-  {
-    "name": "Brazil",
-    "popRank": 7,
-    "continent": "southAmerica",
-    "flagUnicode": "🇧🇷"
-  },
-  {
-    "name": "Bangladesh",
-    "popRank": 8,
-    "continent": "asia",
-    "flagUnicode": "🇧🇩"
-  },
-  {
-    "name": "Russia",
-    "popRank": 9,
-    "continent": "europe",
-    "flagUnicode": "🇷🇺"
-  },
-  {
-    "name": "Ethiopia",
-    "popRank": 10,
-    "continent": "africa",
-    "flagUnicode": "🇪🇹"
-  },
-  {
-    "name": "Mexico",
-    "popRank": 11,
-    "continent": "northAmerica",
-    "flagUnicode": "🇲🇽"
-  },
-  {
-    "name": "Japan",
-    "popRank": 12,
-    "continent": "asia",
-    "flagUnicode": "🇯🇵"
-  },
-  {
-    "name": "Egypt",
-    "popRank": 13,
-    "continent": "africa",
-    "flagUnicode": "🇪🇬"
-  },
-  {
-    "name": "Philippines",
-    "popRank": 14,
-    "continent": "asia",
-    "flagUnicode": "🇵🇭"
-  },
-  {
-    "name": "Dem. Rep. Congo",
-    "popRank": 15,
-    "continent": "africa",
-    "flagUnicode": "🇨🇩"
-  },
-  {
-    "name": "Vietnam",
-    "popRank": 16,
-    "continent": "asia",
-    "flagUnicode": "🇻🇳"
-  },
-  {
-    "name": "Iran",
-    "popRank": 17,
-    "continent": "asia",
-    "flagUnicode": "🇮🇷"
-  },
-  {
-    "name": "Turkey",
-    "popRank": 18,
-    "continent": "asia",
-    "flagUnicode": "🇹🇷"
-  },
-  {
-    "name": "Germany",
-    "popRank": 19,
-    "continent": "europe",
-    "flagUnicode": "🇩🇪"
-  },
-  {
-    "name": "Thailand",
-    "popRank": 20,
-    "continent": "asia",
-    "flagUnicode": "🇹🇭"
-  },
-  {
-    "name": "Tanzania",
-    "popRank": 21,
-    "continent": "africa",
-    "flagUnicode": "🇹🇿"
-  },
-  {
-    "name": "United Kingdom",
-    "popRank": 22,
-    "continent": "europe",
-    "flagUnicode": "🇬🇧"
-  },
-  {
-    "name": "France",
-    "popRank": 23,
-    "continent": "europe",
-    "flagUnicode": "🇫🇷"
-  },
-  {
-    "name": "Somaliland",
-    "popRank": 24,
-    "continent": "africa",
-    "flagUnicode": "🇿🇦"
-  },
-  {
-    "name": "Italy",
-    "popRank": 25,
-    "continent": "europe",
-    "flagUnicode": "🇮🇹"
-  },
-  {
-    "name": "Kenya",
-    "popRank": 26,
-    "continent": "africa",
-    "flagUnicode": "🇰🇪"
-  },
-  {
-    "name": "Myanmar",
-    "popRank": 27,
-    "continent": "asia",
-    "flagUnicode": "🇲🇲"
-  },
-  {
-    "name": "Colombia",
-    "popRank": 28,
-    "continent": "southAmerica",
-    "flagUnicode": "🇨🇴"
-  },
-  {
-    "name": "South Africa",
-    "popRank": 29,
-    "continent": "africa",
-    "flagUnicode": "🇰🇷"
-  },
-  {
-    "name": "Sudan",
-    "popRank": 30,
-    "continent": "africa",
-    "flagUnicode": "🇸🇩"
-  },
-  {
-    "name": "Uganda",
-    "popRank": 31,
-    "continent": "africa",
-    "flagUnicode": "🇺🇬"
-  },
-  {
-    "name": "Spain",
-    "popRank": 32,
-    "continent": "europe",
-    "flagUnicode": "🇪🇸"
-  },
-  {
-    "name": "Algeria",
-    "popRank": 33,
-    "continent": "africa",
-    "flagUnicode": "🇩🇿"
-  },
-  {
-    "name": "Iraq",
-    "popRank": 34,
-    "continent": "asia",
-    "flagUnicode": "🇮🇶"
-  },
-  {
-    "name": "Argentina",
-    "popRank": 35,
-    "continent": "southAmerica",
-    "flagUnicode": "🇦🇷"
-  },
-  {
     "name": "Afghanistan",
     "popRank": 36,
     "continent": "asia",
     "flagUnicode": "🇦🇫"
-  },
-  {
-    "name": "Yemen",
-    "popRank": 37,
-    "continent": "asia",
-    "flagUnicode": "🇾🇪"
-  },
-  {
-    "name": "Canada",
-    "popRank": 38,
-    "continent": "northAmerica",
-    "flagUnicode": "🇨🇦"
-  },
-  {
-    "name": "Angola",
-    "popRank": 39,
-    "continent": "africa",
-    "flagUnicode": "🇦🇴"
-  },
-  {
-    "name": "Ukraine",
-    "popRank": 40,
-    "continent": "europe",
-    "flagUnicode": "🇺🇦"
-  },
-  {
-    "name": "Morocco",
-    "popRank": 41,
-    "continent": "africa",
-    "flagUnicode": "🇲🇦"
-  },
-  {
-    "name": "Poland",
-    "popRank": 42,
-    "continent": "europe",
-    "flagUnicode": "🇵🇱"
-  },
-  {
-    "name": "Uzbekistan",
-    "popRank": 43,
-    "continent": "asia",
-    "flagUnicode": "🇺🇿"
-  },
-  {
-    "name": "Malaysia",
-    "popRank": 44,
-    "continent": "oceania",
-    "flagUnicode": "🇲🇾"
-  },
-  {
-    "name": "Mozambique",
-    "popRank": 45,
-    "continent": "africa",
-    "flagUnicode": "🇲🇿"
-  },
-  {
-    "name": "Ghana",
-    "popRank": 46,
-    "continent": "africa",
-    "flagUnicode": "🇬🇭"
-  },
-  {
-    "name": "Peru",
-    "popRank": 47,
-    "continent": "southAmerica",
-    "flagUnicode": "🇵🇪"
-  },
-  {
-    "name": "S. Sudan",
-    "popRank": 48,
-    "continent": "africa",
-    "flagUnicode": "🇸🇦"
-  },
-  {
-    "name": "Madagascar",
-    "popRank": 49,
-    "continent": "africa",
-    "flagUnicode": "🇲🇬"
-  },
-  {
-    "name": "Côte d'Ivoire",
-    "popRank": 50,
-    "continent": "africa",
-    "flagUnicode": "🇨🇮"
-  },
-  {
-    "name": "Cameroon",
-    "popRank": 51,
-    "continent": "africa",
-    "flagUnicode": "🇨🇲"
-  },
-  {
-    "name": "Nepal",
-    "popRank": 52,
-    "continent": "asia",
-    "flagUnicode": "🇳🇵"
-  },
-  {
-    "name": "Venezuela",
-    "popRank": 53,
-    "continent": "southAmerica",
-    "flagUnicode": "🇻🇪"
-  },
-  {
-    "name": "Niger",
-    "popRank": 54,
-    "continent": "africa",
-    "flagUnicode": "🇳🇪"
-  },
-  {
-    "name": "Australia",
-    "popRank": 55,
-    "continent": "oceania",
-    "flagUnicode": "🇦🇺"
-  },
-  {
-    "name": "North Korea",
-    "popRank": 56,
-    "continent": "asia",
-    "flagUnicode": "🇰🇵"
-  },
-  {
-    "name": "Syria",
-    "popRank": 57,
-    "continent": "asia",
-    "flagUnicode": "🇸🇾"
-  },
-  {
-    "name": "Mali",
-    "popRank": 58,
-    "continent": "africa",
-    "flagUnicode": "🇲🇱"
-  },
-  {
-    "name": "Burkina Faso",
-    "popRank": 59,
-    "continent": "africa",
-    "flagUnicode": "🇧🇫"
-  },
-  {
-    "name": "Sri Lanka",
-    "popRank": 60,
-    "continent": "asia",
-    "flagUnicode": "🇱🇰"
-  },
-  {
-    "name": "Taiwan",
-    "popRank": 61,
-    "continent": "asia",
-    "flagUnicode": "🇹🇼"
-  },
-  {
-    "name": "Malawi",
-    "popRank": 62,
-    "continent": "africa",
-    "flagUnicode": "🇲🇼"
-  },
-  {
-    "name": "Zambia",
-    "popRank": 63,
-    "continent": "africa",
-    "flagUnicode": "🇿🇲"
-  },
-  {
-    "name": "Chad",
-    "popRank": 64,
-    "continent": "africa",
-    "flagUnicode": "🇹🇩"
-  },
-  {
-    "name": "Kazakhstan",
-    "popRank": 65,
-    "continent": "asia",
-    "flagUnicode": "🇰🇿"
-  },
-  {
-    "name": "Chile",
-    "popRank": 66,
-    "continent": "southAmerica",
-    "flagUnicode": "🇨🇱"
-  },
-  {
-    "name": "Somalia",
-    "popRank": 67,
-    "continent": "africa",
-    "flagUnicode": "🇸🇴"
-  },
-  {
-    "name": "Saudi Arabia",
-    "popRank": 68,
-    "continent": "asia",
-    "flagUnicode": "🇸🇳"
-  },
-  {
-    "name": "Romania",
-    "popRank": 69,
-    "continent": "europe",
-    "flagUnicode": "🇷🇴"
-  },
-  {
-    "name": "Guatemala",
-    "popRank": 70,
-    "continent": "northAmerica",
-    "flagUnicode": "🇬🇹"
-  },
-  {
-    "name": "Netherlands",
-    "popRank": 71,
-    "continent": "europe",
-    "flagUnicode": "🇳🇱"
-  },
-  {
-    "name": "Ecuador",
-    "popRank": 72,
-    "continent": "southAmerica",
-    "flagUnicode": "🇪🇨"
-  },
-  {
-    "name": "Cambodia",
-    "popRank": 73,
-    "continent": "asia",
-    "flagUnicode": "🇰🇭"
-  },
-  {
-    "name": "Zimbabwe",
-    "popRank": 74,
-    "continent": "africa",
-    "flagUnicode": "🇿🇼"
-  },
-  {
-    "name": "Guinea",
-    "popRank": 75,
-    "continent": "africa",
-    "flagUnicode": "🇬🇳"
-  },
-  {
-    "name": "Benin",
-    "popRank": 76,
-    "continent": "africa",
-    "flagUnicode": "🇧🇯"
-  },
-  {
-    "name": "Rwanda",
-    "popRank": 77,
-    "continent": "africa",
-    "flagUnicode": "🇷🇼"
-  },
-  {
-    "name": "Burundi",
-    "popRank": 78,
-    "continent": "africa",
-    "flagUnicode": "🇧🇮"
-  },
-  {
-    "name": "Bolivia",
-    "popRank": 79,
-    "continent": "southAmerica",
-    "flagUnicode": "🇧🇴"
-  },
-  {
-    "name": "Tunisia",
-    "popRank": 80,
-    "continent": "africa",
-    "flagUnicode": "🇹🇳"
-  },
-  {
-    "name": "South Korea",
-    "popRank": 81,
-    "continent": "asia",
-    "flagUnicode": "🇸🇸"
-  },
-  {
-    "name": "Haiti",
-    "popRank": 82,
-    "continent": "northAmerica",
-    "flagUnicode": "🇭🇹"
-  },
-  {
-    "name": "Belgium",
-    "popRank": 83,
-    "continent": "europe",
-    "flagUnicode": "🇧🇪"
-  },
-  {
-    "name": "Jordan",
-    "popRank": 84,
-    "continent": "asia",
-    "flagUnicode": "🇯🇴"
-  },
-  {
-    "name": "Dominican Rep.",
-    "popRank": 85,
-    "continent": "northAmerica",
-    "flagUnicode": "🇩🇴"
-  },
-  {
-    "name": "United Arab Emirates",
-    "popRank": 86,
-    "continent": "asia",
-    "flagUnicode": "🇦🇪"
-  },
-  {
-    "name": "Honduras",
-    "popRank": 87,
-    "continent": "northAmerica",
-    "flagUnicode": "🇭🇳"
-  },
-  {
-    "name": "Cuba",
-    "popRank": 88,
-    "continent": "northAmerica",
-    "flagUnicode": "🇨🇺"
-  },
-  {
-    "name": "Tajikistan",
-    "popRank": 89,
-    "continent": "asia",
-    "flagUnicode": "🇹🇯"
-  },
-  {
-    "name": "Papua New Guinea",
-    "popRank": 90,
-    "continent": "oceania",
-    "flagUnicode": "🇵🇬"
-  },
-  {
-    "name": "Sweden",
-    "popRank": 91,
-    "continent": "europe",
-    "flagUnicode": "🇸🇪"
-  },
-  {
-    "name": "Czechia",
-    "popRank": 92,
-    "continent": "europe",
-    "flagUnicode": "🇨🇿"
-  },
-  {
-    "name": "Portugal",
-    "popRank": 93,
-    "continent": "europe",
-    "flagUnicode": "🇵🇹"
-  },
-  {
-    "name": "Azerbaijan",
-    "popRank": 94,
-    "continent": "asia",
-    "flagUnicode": "🇦🇿"
-  },
-  {
-    "name": "Greece",
-    "popRank": 95,
-    "continent": "europe",
-    "flagUnicode": "🇬🇷"
-  },
-  {
-    "name": "Togo",
-    "popRank": 96,
-    "continent": "africa",
-    "flagUnicode": "🇹🇬"
-  },
-  {
-    "name": "Hungary",
-    "popRank": 97,
-    "continent": "europe",
-    "flagUnicode": "🇭🇺"
-  },
-  {
-    "name": "Israel",
-    "popRank": 98,
-    "continent": "asia",
-    "flagUnicode": "🇮🇱"
-  },
-  {
-    "name": "Austria",
-    "popRank": 99,
-    "continent": "europe",
-    "flagUnicode": "🇦🇹"
-  },
-  {
-    "name": "Belarus",
-    "popRank": 100,
-    "continent": "europe",
-    "flagUnicode": "🇧🇾"
-  },
-  {
-    "name": "Switzerland",
-    "popRank": 101,
-    "continent": "europe",
-    "flagUnicode": "🇨🇭"
-  },
-  {
-    "name": "Serbia",
-    "popRank": 102,
-    "continent": "europe",
-    "flagUnicode": "🇸🇱"
-  },
-  {
-    "name": "Laos",
-    "popRank": 103,
-    "continent": "asia",
-    "flagUnicode": "🇱🇦"
-  },
-  {
-    "name": "Turkmenistan",
-    "popRank": 104,
-    "continent": "asia",
-    "flagUnicode": "🇹🇲"
-  },
-  {
-    "name": "Libya",
-    "popRank": 105,
-    "continent": "africa",
-    "flagUnicode": "🇱🇾"
-  },
-  {
-    "name": "Kyrgyzstan",
-    "popRank": 106,
-    "continent": "asia",
-    "flagUnicode": "🇰🇬"
-  },
-  {
-    "name": "Paraguay",
-    "popRank": 107,
-    "continent": "southAmerica",
-    "flagUnicode": "🇵🇾"
-  },
-  {
-    "name": "Nicaragua",
-    "popRank": 108,
-    "continent": "northAmerica",
-    "flagUnicode": "🇳🇮"
-  },
-  {
-    "name": "Bulgaria",
-    "popRank": 109,
-    "continent": "europe",
-    "flagUnicode": "🇧🇬"
-  },
-  {
-    "name": "Senegal",
-    "popRank": 110,
-    "continent": "africa",
-    "flagUnicode": "🇷🇸"
-  },
-  {
-    "name": "Congo",
-    "popRank": 111,
-    "continent": "africa",
-    "flagUnicode": "🇨🇬"
-  },
-  {
-    "name": "El Salvador",
-    "popRank": 112,
-    "continent": "northAmerica",
-    "flagUnicode": "🇸🇻"
-  },
-  {
-    "name": "Denmark",
-    "popRank": 113,
-    "continent": "europe",
-    "flagUnicode": "🇩🇰"
-  },
-  {
-    "name": "Sierra Leone",
-    "popRank": 114,
-    "continent": "africa",
-    "flagUnicode": "🇸🇬"
-  },
-  {
-    "name": "Lebanon",
-    "popRank": 115,
-    "continent": "asia",
-    "flagUnicode": "🇱🇧"
-  },
-  {
-    "name": "Liberia",
-    "popRank": 116,
-    "continent": "africa",
-    "flagUnicode": "🇱🇷"
-  },
-  {
-    "name": "Finland",
-    "popRank": 117,
-    "continent": "europe",
-    "flagUnicode": "🇫🇮"
-  },
-  {
-    "name": "Norway",
-    "popRank": 118,
-    "continent": "europe",
-    "flagUnicode": "🇳🇴"
-  },
-  {
-    "name": "Palestine",
-    "popRank": 119,
-    "continent": "asia",
-    "flagUnicode": "🇵🇸"
-  },
-  {
-    "name": "Central African Rep.",
-    "popRank": 120,
-    "continent": "africa",
-    "flagUnicode": "🇨🇫"
-  },
-  {
-    "name": "Oman",
-    "popRank": 121,
-    "continent": "asia",
-    "flagUnicode": "🇴🇲"
-  },
-  {
-    "name": "Slovakia",
-    "popRank": 122,
-    "continent": "europe",
-    "flagUnicode": "🇸🇰"
-  },
-  {
-    "name": "Mauritania",
-    "popRank": 123,
-    "continent": "africa",
-    "flagUnicode": "🇲🇷"
-  },
-  {
-    "name": "Ireland",
-    "popRank": 124,
-    "continent": "europe",
-    "flagUnicode": "🇮🇪"
-  },
-  {
-    "name": "New Zealand",
-    "popRank": 125,
-    "continent": "oceania",
-    "flagUnicode": "🇳🇿"
-  },
-  {
-    "name": "Costa Rica",
-    "popRank": 126,
-    "continent": "northAmerica",
-    "flagUnicode": "🇨🇷"
-  },
-  {
-    "name": "Kuwait",
-    "popRank": 127,
-    "continent": "asia",
-    "flagUnicode": "🇰🇼"
-  },
-  {
-    "name": "Panama",
-    "popRank": 128,
-    "continent": "northAmerica",
-    "flagUnicode": "🇵🇦"
-  },
-  {
-    "name": "Croatia",
-    "popRank": 129,
-    "continent": "europe",
-    "flagUnicode": "🇭🇷"
-  },
-  {
-    "name": "Georgia",
-    "popRank": 130,
-    "continent": "asia",
-    "flagUnicode": "🇬🇪"
-  },
-  {
-    "name": "Eritrea",
-    "popRank": 131,
-    "continent": "africa",
-    "flagUnicode": "🇪🇷"
-  },
-  {
-    "name": "Mongolia",
-    "popRank": 132,
-    "continent": "asia",
-    "flagUnicode": "🇲🇳"
-  },
-  {
-    "name": "Uruguay",
-    "popRank": 133,
-    "continent": "southAmerica",
-    "flagUnicode": "🇺🇾"
-  },
-  {
-    "name": "Puerto Rico",
-    "popRank": 134,
-    "continent": "northAmerica",
-    "flagUnicode": "🇵🇷"
-  },
-  {
-    "name": "Bosnia and Herz.",
-    "popRank": 135,
-    "continent": "europe",
-    "flagUnicode": "🇧🇦"
-  },
-  {
-    "name": "Qatar",
-    "popRank": 136,
-    "continent": "asia",
-    "flagUnicode": "🇶🇦"
-  },
-  {
-    "name": "Namibia",
-    "popRank": 137,
-    "continent": "africa",
-    "flagUnicode": "🇳🇦"
-  },
-  {
-    "name": "Moldova",
-    "popRank": 138,
-    "continent": "europe",
-    "flagUnicode": "🇲🇩"
-  },
-  {
-    "name": "Armenia",
-    "popRank": 139,
-    "continent": "asia",
-    "flagUnicode": "🇦🇲"
-  },
-  {
-    "name": "Jamaica",
-    "popRank": 140,
-    "continent": "northAmerica",
-    "flagUnicode": "🇯🇲"
-  },
-  {
-    "name": "Lithuania",
-    "popRank": 141,
-    "continent": "europe",
-    "flagUnicode": "🇱🇹"
-  },
-  {
-    "name": "Gambia",
-    "popRank": 142,
-    "continent": "africa",
-    "flagUnicode": "🇬🇲"
   },
   {
     "name": "Albania",
@@ -858,10 +12,100 @@
     "flagUnicode": "🇦🇱"
   },
   {
-    "name": "Gabon",
-    "popRank": 144,
+    "name": "Algeria",
+    "popRank": 33,
     "continent": "africa",
-    "flagUnicode": "🇬🇦"
+    "flagUnicode": "🇩🇿"
+  },
+  {
+    "name": "Angola",
+    "popRank": 39,
+    "continent": "africa",
+    "flagUnicode": "🇦🇴"
+  },
+  {
+    "name": "Argentina",
+    "popRank": 35,
+    "continent": "southAmerica",
+    "flagUnicode": "🇦🇷"
+  },
+  {
+    "name": "Armenia",
+    "popRank": 139,
+    "continent": "asia",
+    "flagUnicode": "🇦🇲"
+  },
+  {
+    "name": "Australia",
+    "popRank": 55,
+    "continent": "oceania",
+    "flagUnicode": "🇦🇺"
+  },
+  {
+    "name": "Austria",
+    "popRank": 99,
+    "continent": "europe",
+    "flagUnicode": "🇦🇹"
+  },
+  {
+    "name": "Azerbaijan",
+    "popRank": 94,
+    "continent": "asia",
+    "flagUnicode": "🇦🇿"
+  },
+  {
+    "name": "Bahamas",
+    "popRank": 168,
+    "continent": "northAmerica",
+    "flagUnicode": "🇧🇸"
+  },
+  {
+    "name": "Bangladesh",
+    "popRank": 8,
+    "continent": "asia",
+    "flagUnicode": "🇧🇩"
+  },
+  {
+    "name": "Belarus",
+    "popRank": 100,
+    "continent": "europe",
+    "flagUnicode": "🇧🇾"
+  },
+  {
+    "name": "Belgium",
+    "popRank": 83,
+    "continent": "europe",
+    "flagUnicode": "🇧🇪"
+  },
+  {
+    "name": "Belize",
+    "popRank": 167,
+    "continent": "northAmerica",
+    "flagUnicode": "🇧🇿"
+  },
+  {
+    "name": "Benin",
+    "popRank": 76,
+    "continent": "africa",
+    "flagUnicode": "🇧🇯"
+  },
+  {
+    "name": "Bhutan",
+    "popRank": 162,
+    "continent": "asia",
+    "flagUnicode": "🇧🇹"
+  },
+  {
+    "name": "Bolivia",
+    "popRank": 79,
+    "continent": "southAmerica",
+    "flagUnicode": "🇧🇴"
+  },
+  {
+    "name": "Bosnia and Herz.",
+    "popRank": 135,
+    "continent": "europe",
+    "flagUnicode": "🇧🇦"
   },
   {
     "name": "Botswana",
@@ -870,22 +114,166 @@
     "flagUnicode": "🇧🇼"
   },
   {
-    "name": "Lesotho",
-    "popRank": 146,
-    "continent": "africa",
-    "flagUnicode": "🇱🇸"
+    "name": "Brazil",
+    "popRank": 7,
+    "continent": "southAmerica",
+    "flagUnicode": "🇧🇷"
   },
   {
-    "name": "Guinea-Bissau",
-    "popRank": 147,
-    "continent": "africa",
-    "flagUnicode": "🇬🇼"
+    "name": "Brunei",
+    "popRank": 166,
+    "continent": "asia",
+    "flagUnicode": "🇧🇳"
   },
   {
-    "name": "Slovenia",
-    "popRank": 148,
+    "name": "Bulgaria",
+    "popRank": 109,
     "continent": "europe",
-    "flagUnicode": "🇸🇮"
+    "flagUnicode": "🇧🇬"
+  },
+  {
+    "name": "Burkina Faso",
+    "popRank": 59,
+    "continent": "africa",
+    "flagUnicode": "🇧🇫"
+  },
+  {
+    "name": "Burundi",
+    "popRank": 78,
+    "continent": "africa",
+    "flagUnicode": "🇧🇮"
+  },
+  {
+    "name": "Cambodia",
+    "popRank": 73,
+    "continent": "asia",
+    "flagUnicode": "🇰🇭"
+  },
+  {
+    "name": "Cameroon",
+    "popRank": 51,
+    "continent": "africa",
+    "flagUnicode": "🇨🇲"
+  },
+  {
+    "name": "Canada",
+    "popRank": 38,
+    "continent": "northAmerica",
+    "flagUnicode": "🇨🇦"
+  },
+  {
+    "name": "Central African Rep.",
+    "popRank": 120,
+    "continent": "africa",
+    "flagUnicode": "🇨🇫"
+  },
+  {
+    "name": "Chad",
+    "popRank": 64,
+    "continent": "africa",
+    "flagUnicode": "🇹🇩"
+  },
+  {
+    "name": "Chile",
+    "popRank": 66,
+    "continent": "southAmerica",
+    "flagUnicode": "🇨🇱"
+  },
+  {
+    "name": "China",
+    "popRank": 2,
+    "continent": "asia",
+    "flagUnicode": "🇨🇳"
+  },
+  {
+    "name": "Colombia",
+    "popRank": 28,
+    "continent": "southAmerica",
+    "flagUnicode": "🇨🇴"
+  },
+  {
+    "name": "Congo",
+    "popRank": 111,
+    "continent": "africa",
+    "flagUnicode": "🇨🇬"
+  },
+  {
+    "name": "Costa Rica",
+    "popRank": 126,
+    "continent": "northAmerica",
+    "flagUnicode": "🇨🇷"
+  },
+  {
+    "name": "Côte d'Ivoire",
+    "popRank": 50,
+    "continent": "africa",
+    "flagUnicode": "🇨🇮"
+  },
+  {
+    "name": "Croatia",
+    "popRank": 129,
+    "continent": "europe",
+    "flagUnicode": "🇭🇷"
+  },
+  {
+    "name": "Cuba",
+    "popRank": 88,
+    "continent": "northAmerica",
+    "flagUnicode": "🇨🇺"
+  },
+  {
+    "name": "Cyprus",
+    "popRank": 155,
+    "continent": "europe",
+    "flagUnicode": "🇨🇾"
+  },
+  {
+    "name": "Czechia",
+    "popRank": 92,
+    "continent": "europe",
+    "flagUnicode": "🇨🇿"
+  },
+  {
+    "name": "Dem. Rep. Congo",
+    "popRank": 15,
+    "continent": "africa",
+    "flagUnicode": "🇨🇩"
+  },
+  {
+    "name": "Denmark",
+    "popRank": 114,
+    "continent": "europe",
+    "flagUnicode": "🇩🇰"
+  },
+  {
+    "name": "Djibouti",
+    "popRank": 158,
+    "continent": "africa",
+    "flagUnicode": "🇩🇯"
+  },
+  {
+    "name": "Dominican Rep.",
+    "popRank": 85,
+    "continent": "northAmerica",
+    "flagUnicode": "🇩🇴"
+  },
+  {
+    "name": "Ecuador",
+    "popRank": 72,
+    "continent": "southAmerica",
+    "flagUnicode": "🇪🇨"
+  },
+  {
+    "name": "Egypt",
+    "popRank": 13,
+    "continent": "africa",
+    "flagUnicode": "🇪🇬"
+  },
+  {
+    "name": "El Salvador",
+    "popRank": 112,
+    "continent": "northAmerica",
+    "flagUnicode": "🇸🇻"
   },
   {
     "name": "Eq. Guinea",
@@ -894,40 +282,10 @@
     "flagUnicode": "🇬🇶"
   },
   {
-    "name": "Latvia",
-    "popRank": 150,
-    "continent": "europe",
-    "flagUnicode": "🇱🇻"
-  },
-  {
-    "name": "Macedonia",
-    "popRank": 151,
-    "continent": "europe",
-    "flagUnicode": "🇲🇰"
-  },
-  {
-    "name": "Kosovo",
-    "popRank": 152,
-    "continent": "europe",
-    "flagUnicode": "🇽🇰"
-  },
-  {
-    "name": "Trinidad and Tobago",
-    "popRank": 153,
-    "continent": "northAmerica",
-    "flagUnicode": "🇹🇹"
-  },
-  {
-    "name": "Timor-Leste",
-    "popRank": 154,
-    "continent": "oceania",
-    "flagUnicode": "🇹🇱"
-  },
-  {
-    "name": "Cyprus",
-    "popRank": 155,
-    "continent": "europe",
-    "flagUnicode": "🇨🇾"
+    "name": "Eritrea",
+    "popRank": 131,
+    "continent": "africa",
+    "flagUnicode": "🇪🇷"
   },
   {
     "name": "Estonia",
@@ -942,94 +300,10 @@
     "flagUnicode": "🇸🇿"
   },
   {
-    "name": "Djibouti",
-    "popRank": 158,
+    "name": "Ethiopia",
+    "popRank": 10,
     "continent": "africa",
-    "flagUnicode": "🇩🇯"
-  },
-  {
-    "name": "Fiji",
-    "popRank": 159,
-    "continent": "oceania",
-    "flagUnicode": "🇫🇯"
-  },
-  {
-    "name": "Solomon Is.",
-    "popRank": 160,
-    "continent": "oceania",
-    "flagUnicode": "🇸🇧"
-  },
-  {
-    "name": "Guyana",
-    "popRank": 161,
-    "continent": "southAmerica",
-    "flagUnicode": "🇬🇾"
-  },
-  {
-    "name": "Bhutan",
-    "popRank": 162,
-    "continent": "asia",
-    "flagUnicode": "🇧🇹"
-  },
-  {
-    "name": "Luxembourg",
-    "popRank": 163,
-    "continent": "europe",
-    "flagUnicode": "🇱🇺"
-  },
-  {
-    "name": "Suriname",
-    "popRank": 164,
-    "continent": "southAmerica",
-    "flagUnicode": "🇸🇷"
-  },
-  {
-    "name": "Montenegro",
-    "popRank": 165,
-    "continent": "europe",
-    "flagUnicode": "🇲🇪"
-  },
-  {
-    "name": "Brunei",
-    "popRank": 166,
-    "continent": "asia",
-    "flagUnicode": "🇧🇳"
-  },
-  {
-    "name": "Belize",
-    "popRank": 167,
-    "continent": "northAmerica",
-    "flagUnicode": "🇧🇿"
-  },
-  {
-    "name": "Bahamas",
-    "popRank": 168,
-    "continent": "northAmerica",
-    "flagUnicode": "🇧🇸"
-  },
-  {
-    "name": "Iceland",
-    "popRank": 169,
-    "continent": "europe",
-    "flagUnicode": "🇮🇸"
-  },
-  {
-    "name": "Vanuatu",
-    "popRank": 170,
-    "continent": "oceania",
-    "flagUnicode": "🇻🇺"
-  },
-  {
-    "name": "New Caledonia",
-    "popRank": 171,
-    "continent": "oceania",
-    "flagUnicode": "🇳🇨"
-  },
-  {
-    "name": "Greenland",
-    "popRank": 172,
-    "continent": "northAmerica",
-    "flagUnicode": "🇬🇱"
+    "flagUnicode": "🇪🇹"
   },
   {
     "name": "Falkland Is.",
@@ -1038,9 +312,735 @@
     "flagUnicode": "🇫🇰"
   },
   {
+    "name": "Fiji",
+    "popRank": 159,
+    "continent": "oceania",
+    "flagUnicode": "🇫🇯"
+  },
+  {
+    "name": "Finland",
+    "popRank": 117,
+    "continent": "europe",
+    "flagUnicode": "🇫🇮"
+  },
+  {
     "name": "Fr. S. Antarctic Lands",
     "popRank": 174,
     "continent": "africa",
     "flagUnicode": "🇹🇫"
+  },
+  {
+    "name": "France",
+    "popRank": 23,
+    "continent": "europe",
+    "flagUnicode": "🇫🇷"
+  },
+  {
+    "name": "Gabon",
+    "popRank": 144,
+    "continent": "africa",
+    "flagUnicode": "🇬🇦"
+  },
+  {
+    "name": "Gambia",
+    "popRank": 142,
+    "continent": "africa",
+    "flagUnicode": "🇬🇲"
+  },
+  {
+    "name": "Georgia",
+    "popRank": 130,
+    "continent": "asia",
+    "flagUnicode": "🇬🇪"
+  },
+  {
+    "name": "Germany",
+    "popRank": 19,
+    "continent": "europe",
+    "flagUnicode": "🇩🇪"
+  },
+  {
+    "name": "Ghana",
+    "popRank": 46,
+    "continent": "africa",
+    "flagUnicode": "🇬🇭"
+  },
+  {
+    "name": "Greece",
+    "popRank": 95,
+    "continent": "europe",
+    "flagUnicode": "🇬🇷"
+  },
+  {
+    "name": "Greenland",
+    "popRank": 172,
+    "continent": "northAmerica",
+    "flagUnicode": "🇬🇱"
+  },
+  {
+    "name": "Guatemala",
+    "popRank": 70,
+    "continent": "northAmerica",
+    "flagUnicode": "🇬🇹"
+  },
+  {
+    "name": "Guinea",
+    "popRank": 75,
+    "continent": "africa",
+    "flagUnicode": "🇬🇳"
+  },
+  {
+    "name": "Guinea-Bissau",
+    "popRank": 147,
+    "continent": "africa",
+    "flagUnicode": "🇬🇼"
+  },
+  {
+    "name": "Guyana",
+    "popRank": 161,
+    "continent": "southAmerica",
+    "flagUnicode": "🇬🇾"
+  },
+  {
+    "name": "Haiti",
+    "popRank": 82,
+    "continent": "northAmerica",
+    "flagUnicode": "🇭🇹"
+  },
+  {
+    "name": "Honduras",
+    "popRank": 87,
+    "continent": "northAmerica",
+    "flagUnicode": "🇭🇳"
+  },
+  {
+    "name": "Hungary",
+    "popRank": 97,
+    "continent": "europe",
+    "flagUnicode": "🇭🇺"
+  },
+  {
+    "name": "Iceland",
+    "popRank": 169,
+    "continent": "europe",
+    "flagUnicode": "🇮🇸"
+  },
+  {
+    "name": "India",
+    "popRank": 1,
+    "continent": "asia",
+    "flagUnicode": "🇮🇳"
+  },
+  {
+    "name": "Indonesia",
+    "popRank": 4,
+    "continent": "oceania",
+    "flagUnicode": "🇮🇩"
+  },
+  {
+    "name": "Iran",
+    "popRank": 17,
+    "continent": "asia",
+    "flagUnicode": "🇮🇷"
+  },
+  {
+    "name": "Iraq",
+    "popRank": 34,
+    "continent": "asia",
+    "flagUnicode": "🇮🇶"
+  },
+  {
+    "name": "Ireland",
+    "popRank": 124,
+    "continent": "europe",
+    "flagUnicode": "🇮🇪"
+  },
+  {
+    "name": "Israel",
+    "popRank": 98,
+    "continent": "asia",
+    "flagUnicode": "🇮🇱"
+  },
+  {
+    "name": "Italy",
+    "popRank": 25,
+    "continent": "europe",
+    "flagUnicode": "🇮🇹"
+  },
+  {
+    "name": "Jamaica",
+    "popRank": 140,
+    "continent": "northAmerica",
+    "flagUnicode": "🇯🇲"
+  },
+  {
+    "name": "Japan",
+    "popRank": 12,
+    "continent": "asia",
+    "flagUnicode": "🇯🇵"
+  },
+  {
+    "name": "Jordan",
+    "popRank": 84,
+    "continent": "asia",
+    "flagUnicode": "🇯🇴"
+  },
+  {
+    "name": "Kazakhstan",
+    "popRank": 65,
+    "continent": "asia",
+    "flagUnicode": "🇰🇿"
+  },
+  {
+    "name": "Kenya",
+    "popRank": 26,
+    "continent": "africa",
+    "flagUnicode": "🇰🇪"
+  },
+  {
+    "name": "Kosovo",
+    "popRank": 152,
+    "continent": "europe",
+    "flagUnicode": "🇽🇰"
+  },
+  {
+    "name": "Kuwait",
+    "popRank": 127,
+    "continent": "asia",
+    "flagUnicode": "🇰🇼"
+  },
+  {
+    "name": "Kyrgyzstan",
+    "popRank": 106,
+    "continent": "asia",
+    "flagUnicode": "🇰🇬"
+  },
+  {
+    "name": "Laos",
+    "popRank": 103,
+    "continent": "asia",
+    "flagUnicode": "🇱🇦"
+  },
+  {
+    "name": "Latvia",
+    "popRank": 150,
+    "continent": "europe",
+    "flagUnicode": "🇱🇻"
+  },
+  {
+    "name": "Lebanon",
+    "popRank": 115,
+    "continent": "asia",
+    "flagUnicode": "🇱🇧"
+  },
+  {
+    "name": "Lesotho",
+    "popRank": 146,
+    "continent": "africa",
+    "flagUnicode": "🇱🇸"
+  },
+  {
+    "name": "Liberia",
+    "popRank": 116,
+    "continent": "africa",
+    "flagUnicode": "🇱🇷"
+  },
+  {
+    "name": "Libya",
+    "popRank": 105,
+    "continent": "africa",
+    "flagUnicode": "🇱🇾"
+  },
+  {
+    "name": "Lithuania",
+    "popRank": 141,
+    "continent": "europe",
+    "flagUnicode": "🇱🇹"
+  },
+  {
+    "name": "Luxembourg",
+    "popRank": 163,
+    "continent": "europe",
+    "flagUnicode": "🇱🇺"
+  },
+  {
+    "name": "Macedonia",
+    "popRank": 151,
+    "continent": "europe",
+    "flagUnicode": "🇲🇰"
+  },
+  {
+    "name": "Madagascar",
+    "popRank": 49,
+    "continent": "africa",
+    "flagUnicode": "🇲🇬"
+  },
+  {
+    "name": "Malawi",
+    "popRank": 62,
+    "continent": "africa",
+    "flagUnicode": "🇲🇼"
+  },
+  {
+    "name": "Malaysia",
+    "popRank": 44,
+    "continent": "oceania",
+    "flagUnicode": "🇲🇾"
+  },
+  {
+    "name": "Mali",
+    "popRank": 58,
+    "continent": "africa",
+    "flagUnicode": "🇲🇱"
+  },
+  {
+    "name": "Mauritania",
+    "popRank": 123,
+    "continent": "africa",
+    "flagUnicode": "🇲🇷"
+  },
+  {
+    "name": "Mexico",
+    "popRank": 11,
+    "continent": "northAmerica",
+    "flagUnicode": "🇲🇽"
+  },
+  {
+    "name": "Moldova",
+    "popRank": 138,
+    "continent": "europe",
+    "flagUnicode": "🇲🇩"
+  },
+  {
+    "name": "Mongolia",
+    "popRank": 132,
+    "continent": "asia",
+    "flagUnicode": "🇲🇳"
+  },
+  {
+    "name": "Montenegro",
+    "popRank": 165,
+    "continent": "europe",
+    "flagUnicode": "🇲🇪"
+  },
+  {
+    "name": "Morocco",
+    "popRank": 41,
+    "continent": "africa",
+    "flagUnicode": "🇲🇦"
+  },
+  {
+    "name": "Mozambique",
+    "popRank": 45,
+    "continent": "africa",
+    "flagUnicode": "🇲🇿"
+  },
+  {
+    "name": "Myanmar",
+    "popRank": 27,
+    "continent": "asia",
+    "flagUnicode": "🇲🇲"
+  },
+  {
+    "name": "Namibia",
+    "popRank": 137,
+    "continent": "africa",
+    "flagUnicode": "🇳🇦"
+  },
+  {
+    "name": "Nepal",
+    "popRank": 52,
+    "continent": "asia",
+    "flagUnicode": "🇳🇵"
+  },
+  {
+    "name": "Netherlands",
+    "popRank": 71,
+    "continent": "europe",
+    "flagUnicode": "🇳🇱"
+  },
+  {
+    "name": "New Caledonia",
+    "popRank": 171,
+    "continent": "oceania",
+    "flagUnicode": "🇳🇨"
+  },
+  {
+    "name": "New Zealand",
+    "popRank": 125,
+    "continent": "oceania",
+    "flagUnicode": "🇳🇿"
+  },
+  {
+    "name": "Nicaragua",
+    "popRank": 108,
+    "continent": "northAmerica",
+    "flagUnicode": "🇳🇮"
+  },
+  {
+    "name": "Niger",
+    "popRank": 54,
+    "continent": "africa",
+    "flagUnicode": "🇳🇪"
+  },
+  {
+    "name": "Nigeria",
+    "popRank": 6,
+    "continent": "africa",
+    "flagUnicode": "🇳🇬"
+  },
+  {
+    "name": "North Korea",
+    "popRank": 56,
+    "continent": "asia",
+    "flagUnicode": "🇰🇵"
+  },
+  {
+    "name": "Norway",
+    "popRank": 118,
+    "continent": "europe",
+    "flagUnicode": "🇳🇴"
+  },
+  {
+    "name": "Oman",
+    "popRank": 121,
+    "continent": "asia",
+    "flagUnicode": "🇴🇲"
+  },
+  {
+    "name": "Pakistan",
+    "popRank": 5,
+    "continent": "asia",
+    "flagUnicode": "🇵🇰"
+  },
+  {
+    "name": "Palestine",
+    "popRank": 119,
+    "continent": "asia",
+    "flagUnicode": "🇵🇸"
+  },
+  {
+    "name": "Panama",
+    "popRank": 128,
+    "continent": "northAmerica",
+    "flagUnicode": "🇵🇦"
+  },
+  {
+    "name": "Papua New Guinea",
+    "popRank": 90,
+    "continent": "oceania",
+    "flagUnicode": "🇵🇬"
+  },
+  {
+    "name": "Paraguay",
+    "popRank": 107,
+    "continent": "southAmerica",
+    "flagUnicode": "🇵🇾"
+  },
+  {
+    "name": "Peru",
+    "popRank": 47,
+    "continent": "southAmerica",
+    "flagUnicode": "🇵🇪"
+  },
+  {
+    "name": "Philippines",
+    "popRank": 14,
+    "continent": "asia",
+    "flagUnicode": "🇵🇭"
+  },
+  {
+    "name": "Poland",
+    "popRank": 42,
+    "continent": "europe",
+    "flagUnicode": "🇵🇱"
+  },
+  {
+    "name": "Portugal",
+    "popRank": 93,
+    "continent": "europe",
+    "flagUnicode": "🇵🇹"
+  },
+  {
+    "name": "Puerto Rico",
+    "popRank": 134,
+    "continent": "northAmerica",
+    "flagUnicode": "🇵🇷"
+  },
+  {
+    "name": "Qatar",
+    "popRank": 136,
+    "continent": "asia",
+    "flagUnicode": "🇶🇦"
+  },
+  {
+    "name": "Romania",
+    "popRank": 69,
+    "continent": "europe",
+    "flagUnicode": "🇷🇴"
+  },
+  {
+    "name": "Russia",
+    "popRank": 9,
+    "continent": "europe",
+    "flagUnicode": "🇷🇺"
+  },
+  {
+    "name": "Rwanda",
+    "popRank": 77,
+    "continent": "africa",
+    "flagUnicode": "🇷🇼"
+  },
+  {
+    "name": "S. Sudan",
+    "popRank": 81,
+    "continent": "africa",
+    "flagUnicode": "🇸🇸"
+  },
+  {
+    "name": "Saudi Arabia",
+    "popRank": 48,
+    "continent": "asia",
+    "flagUnicode": "🇸🇦"
+  },
+  {
+    "name": "Senegal",
+    "popRank": 68,
+    "continent": "africa",
+    "flagUnicode": "🇸🇳"
+  },
+  {
+    "name": "Serbia",
+    "popRank": 110,
+    "continent": "europe",
+    "flagUnicode": "🇷🇸"
+  },
+  {
+    "name": "Sierra Leone",
+    "popRank": 102,
+    "continent": "africa",
+    "flagUnicode": "🇸🇱"
+  },
+  {
+    "name": "Slovakia",
+    "popRank": 122,
+    "continent": "europe",
+    "flagUnicode": "🇸🇰"
+  },
+  {
+    "name": "Slovenia",
+    "popRank": 148,
+    "continent": "europe",
+    "flagUnicode": "🇸🇮"
+  },
+  {
+    "name": "Solomon Is.",
+    "popRank": 160,
+    "continent": "oceania",
+    "flagUnicode": "🇸🇧"
+  },
+  {
+    "name": "Somalia",
+    "popRank": 67,
+    "continent": "africa",
+    "flagUnicode": "🇸🇴"
+  },
+  {
+    "name": "Somaliland",
+    "popRank": 113,
+    "continent": "africa",
+    "flagUnicode": "🏴"
+  },
+  {
+    "name": "South Africa",
+    "popRank": 24,
+    "continent": "africa",
+    "flagUnicode": "🇿🇦"
+  },
+  {
+    "name": "South Korea",
+    "popRank": 29,
+    "continent": "asia",
+    "flagUnicode": "🇰🇷"
+  },
+  {
+    "name": "Spain",
+    "popRank": 32,
+    "continent": "europe",
+    "flagUnicode": "🇪🇸"
+  },
+  {
+    "name": "Sri Lanka",
+    "popRank": 60,
+    "continent": "asia",
+    "flagUnicode": "🇱🇰"
+  },
+  {
+    "name": "Sudan",
+    "popRank": 30,
+    "continent": "africa",
+    "flagUnicode": "🇸🇩"
+  },
+  {
+    "name": "Suriname",
+    "popRank": 164,
+    "continent": "southAmerica",
+    "flagUnicode": "🇸🇷"
+  },
+  {
+    "name": "Sweden",
+    "popRank": 91,
+    "continent": "europe",
+    "flagUnicode": "🇸🇪"
+  },
+  {
+    "name": "Switzerland",
+    "popRank": 101,
+    "continent": "europe",
+    "flagUnicode": "🇨🇭"
+  },
+  {
+    "name": "Syria",
+    "popRank": 57,
+    "continent": "asia",
+    "flagUnicode": "🇸🇾"
+  },
+  {
+    "name": "Taiwan",
+    "popRank": 61,
+    "continent": "asia",
+    "flagUnicode": "🇹🇼"
+  },
+  {
+    "name": "Tajikistan",
+    "popRank": 89,
+    "continent": "asia",
+    "flagUnicode": "🇹🇯"
+  },
+  {
+    "name": "Tanzania",
+    "popRank": 21,
+    "continent": "africa",
+    "flagUnicode": "🇹🇿"
+  },
+  {
+    "name": "Thailand",
+    "popRank": 20,
+    "continent": "asia",
+    "flagUnicode": "🇹🇭"
+  },
+  {
+    "name": "Timor-Leste",
+    "popRank": 154,
+    "continent": "oceania",
+    "flagUnicode": "🇹🇱"
+  },
+  {
+    "name": "Togo",
+    "popRank": 96,
+    "continent": "africa",
+    "flagUnicode": "🇹🇬"
+  },
+  {
+    "name": "Trinidad and Tobago",
+    "popRank": 153,
+    "continent": "northAmerica",
+    "flagUnicode": "🇹🇹"
+  },
+  {
+    "name": "Tunisia",
+    "popRank": 80,
+    "continent": "africa",
+    "flagUnicode": "🇹🇳"
+  },
+  {
+    "name": "Turkey",
+    "popRank": 18,
+    "continent": "asia",
+    "flagUnicode": "🇹🇷"
+  },
+  {
+    "name": "Turkmenistan",
+    "popRank": 104,
+    "continent": "asia",
+    "flagUnicode": "🇹🇲"
+  },
+  {
+    "name": "Uganda",
+    "popRank": 31,
+    "continent": "africa",
+    "flagUnicode": "🇺🇬"
+  },
+  {
+    "name": "Ukraine",
+    "popRank": 40,
+    "continent": "europe",
+    "flagUnicode": "🇺🇦"
+  },
+  {
+    "name": "United Arab Emirates",
+    "popRank": 86,
+    "continent": "asia",
+    "flagUnicode": "🇦🇪"
+  },
+  {
+    "name": "United Kingdom",
+    "popRank": 22,
+    "continent": "europe",
+    "flagUnicode": "🇬🇧"
+  },
+  {
+    "name": "United States of America",
+    "popRank": 3,
+    "continent": "northAmerica",
+    "flagUnicode": "🇺🇸"
+  },
+  {
+    "name": "Uruguay",
+    "popRank": 133,
+    "continent": "southAmerica",
+    "flagUnicode": "🇺🇾"
+  },
+  {
+    "name": "Uzbekistan",
+    "popRank": 43,
+    "continent": "asia",
+    "flagUnicode": "🇺🇿"
+  },
+  {
+    "name": "Vanuatu",
+    "popRank": 170,
+    "continent": "oceania",
+    "flagUnicode": "🇻🇺"
+  },
+  {
+    "name": "Venezuela",
+    "popRank": 53,
+    "continent": "southAmerica",
+    "flagUnicode": "🇻🇪"
+  },
+  {
+    "name": "Vietnam",
+    "popRank": 16,
+    "continent": "asia",
+    "flagUnicode": "🇻🇳"
+  },
+  {
+    "name": "Yemen",
+    "popRank": 37,
+    "continent": "asia",
+    "flagUnicode": "🇾🇪"
+  },
+  {
+    "name": "Zambia",
+    "popRank": 63,
+    "continent": "africa",
+    "flagUnicode": "🇿🇲"
+  },
+  {
+    "name": "Zimbabwe",
+    "popRank": 74,
+    "continent": "africa",
+    "flagUnicode": "🇿🇼"
   }
 ]
