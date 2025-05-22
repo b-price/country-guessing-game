@@ -4,6 +4,7 @@
 - Play with as many countries as you'd like!
 - Filter out populous countries for a challenge!
 - Filter out the least populous countries if it's too hard!
+- Choose which continents to include!
 - Show your friends how you did!
 
 ### Source Code Setup
