@@ -1,5 +1,5 @@
-import {useState, useEffect} from "react";
-import {Alert, Button, Card, Col, Container, Form, InputGroup, Row} from "react-bootstrap";
+import {useState, useEffect, useRef} from "react";
+import {Alert, Badge, Button, Card, Col, Container, Form, InputGroup, Row} from "react-bootstrap";
 import MapChart from "./Map.tsx";
 import {Score} from "./Score.tsx";
 import countryData from '../data/countries.json' with { type: 'json' };
@@ -16,6 +16,7 @@ export interface RoundScore {
     guess: Country;
     correct: Country;
     isCorrect: boolean;
+    timeElapsed: number;
 }
 
 interface ContinentSelectionMap {
@@ -41,6 +42,10 @@ export const Game = () => {
     const [round, setRound] = useState<number>(0);
     const [selectedContinents, setSelectedContinents] = useState<Set<string>>(new Set());
     const [allContinents, setAllContinents] = useState<string[]>([])
+    const [roundTime, setRoundTime] = useState<number>(0);
+    const [totalTime, setTotalTime] = useState<number>(0);
+    const roundTimerRef = useRef<number | null>(null);
+    const totalTimerRef = useRef<number | null>(null);
 
     // Get unique continents on component mount
     useEffect(() => {
@@ -49,6 +54,43 @@ export const Game = () => {
         setAllContinents(formattedContinents);
         setSelectedContinents(new Set(formattedContinents));
     }, []);
+
+    // Start timers when game becomes active
+    useEffect(() => {
+        if (gameActive) {
+            // Start round timer
+            setRoundTime(0);
+            roundTimerRef.current = window.setInterval(() => {
+                setRoundTime(prev => prev + 0.1);
+            }, 100);
+
+            // Start total timer if it's not already running
+            if (totalTimerRef.current === null) {
+                setTotalTime(0);
+                totalTimerRef.current = window.setInterval(() => {
+                    setTotalTime(prev => prev + 0.1);
+                }, 100);
+            }
+        } else {
+            // Clear round timer when game is not active
+            if (roundTimerRef.current) {
+                clearInterval(roundTimerRef.current);
+                roundTimerRef.current = null;
+            }
+
+            // Clear total timer when game is over
+            if (gameOver && totalTimerRef.current) {
+                clearInterval(totalTimerRef.current);
+                totalTimerRef.current = null;
+            }
+        }
+
+        // Cleanup timers on component unmount
+        return () => {
+            if (roundTimerRef.current) clearInterval(roundTimerRef.current);
+            if (totalTimerRef.current) clearInterval(totalTimerRef.current);
+        };
+    }, [gameActive, gameOver]);
 
     function getRandomUniqueIntegers(x: number, min: number, max: number) {
         if (min > max || x <= 0) return [];
@@ -90,6 +132,8 @@ export const Game = () => {
         if (success) {
             setGameActive(true);
             setGameOver(false);
+            setTotalTime(0);
+            setRoundTime(0);
         }
     }
 
@@ -160,12 +204,23 @@ export const Game = () => {
         setCountries([]);
         setGameActive(false);
         setGameOver(false);
+        setGameActive(false);
+        setGameOver(false);
+        setTotalTime(0);
+        setRoundTime(0);
     }
 
     const onMapSelection = (countryName: string) => {
         const guess = countryData.find(s => s.name === countryName);
         if (guess) {
-            setScores([...scores, { guess, correct: currentCountry, isCorrect: countryName === currentCountry.name}]);
+            // Include the round time in the score
+            setScores([...scores, {
+                guess,
+                correct: currentCountry,
+                isCorrect: countryName === currentCountry.name,
+                timeElapsed: roundTime
+            }]);
+
             const nextRound = round + 1;
             if (nextRound >= countries.length) {
                 setGameActive(false);
@@ -173,8 +228,15 @@ export const Game = () => {
             } else {
                 setCurrentCountry(countries[nextRound]);
                 setRound(nextRound);
+                // Reset round timer for next round
+                setRoundTime(0);
             }
         }
+    }
+
+    // Format time to display with one decimal place
+    const formatTime = (time: number) => {
+        return time.toFixed(1);
     }
 
     return (
@@ -282,15 +344,26 @@ export const Game = () => {
                 <Card className="mb-3">
                     <Card.Header className="d-flex align-items-center justify-content-between pb-0">
                         <h3>{currentCountry?.name} {currentCountry.flagUnicode}</h3>
-                        <h4 id="roundDisplay">Round {round + 1}/{countryCount}</h4>
+                        <h5 className="d-none d-md-block">
+                            <Badge bg="secondary">Round: {formatTime(roundTime)}s</Badge>
+                        </h5>
+                        <h4 id="roundDisplay" className="me-md-3">Round {round + 1}/{countryCount}</h4>
                     </Card.Header>
                     <Card.Body className="p-0">
                         <MapChart onSelection={onMapSelection}/>
                     </Card.Body>
+                    <Card.Footer className="d-flex justify-content-between align-items-center pb-0">
+                        <h5>
+                            <Badge bg="success">Total Time: {formatTime(totalTime)}s</Badge>
+                        </h5>
+                        <h5 className="d-block d-md-none">
+                            <Badge bg="secondary">Round: {formatTime(roundTime)}s</Badge>
+                        </h5>
+                    </Card.Footer>
                 </Card>
             )}
             {!gameActive && gameOver && (
-                <Score scores={scores} onRestart={onGameRestart}/>
+                <Score scores={scores} onRestart={onGameRestart} totalTime={totalTime}/>
             )}
             <Alert className="mt-3" variant="danger" show={error}>{errorMessage}</Alert>
         </Container>
