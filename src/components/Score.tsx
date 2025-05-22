@@ -24,14 +24,18 @@ interface ScoreProps {
     }
 
     const getScoreIcon = (s: RoundScore) => {
-        if (s.isCorrect) {
+        if (s.isSkipped) {
             return (
-                <span className="text-success">{s.guess.name} {s.guess.flagUnicode} <strong>✓</strong></span>
-            )
+                <span className="text-muted">Skipped <strong>⏭️</strong></span>
+            );
+        } else if (s.isCorrect) {
+            return (
+                <span className="text-success">{s.guess!.name} {s.guess!.flagUnicode} <strong>✓</strong></span>
+            );
         } else {
             return (
-                <span className="text-danger">{s.guess.name} {s.guess.flagUnicode} <strong>✖</strong></span>
-            )
+                <span className="text-danger">{s.guess!.name} {s.guess!.flagUnicode} <strong>✖</strong></span>
+            );
         }
     }
 
@@ -100,7 +104,10 @@ interface ScoreProps {
                     {scores?.map((s, i) => (
                         <Row key={i}>
                             <Col>
-                                <p><strong>Round {i + 1}: </strong>{s.correct.flagUnicode} {s.correct.name}: {getScoreIcon(s)}</p>
+                                <p>
+                                    <strong>Round {i + 1}: </strong>
+                                    {s.correct.flagUnicode} {s.correct.name}: {getScoreIcon(s)}
+                                </p>
                             </Col>
                             <Col xs="auto">
                                 <Badge bg="secondary">{formatTime(s.timeElapsed)}s</Badge>

@@ -13,10 +13,11 @@ export interface Country {
 }
 
 export interface RoundScore {
-    guess: Country;
+    guess?: Country;
     correct: Country;
     isCorrect: boolean;
     timeElapsed: number;
+    isSkipped?: boolean;
 }
 
 interface ContinentSelectionMap {
@@ -239,6 +240,43 @@ export const Game = () => {
         return time.toFixed(1);
     }
 
+    const onRoundSkip = () => {
+        // Record the skipped round
+        setScores([...scores, {
+            correct: currentCountry,
+            isCorrect: false,
+            timeElapsed: roundTime,
+            isSkipped: true
+        }]);
+
+        const nextRound = round + 1;
+        if (nextRound >= countries.length) {
+            setGameActive(false);
+            setGameOver(true);
+        } else {
+            setCurrentCountry(countries[nextRound]);
+            setRound(nextRound);
+            // Reset round timer for next round
+            setRoundTime(0);
+        }
+    };
+
+    const onGameQuit = () => {
+        // Create score entries for all remaining rounds (including current)
+        const remainingRounds = countries.slice(round);
+        const skippedScores: RoundScore[] = remainingRounds.map(country => ({
+            correct: country,
+            isCorrect: false,
+            timeElapsed: 0,
+            isSkipped: true
+        }));
+
+        // Add the skipped scores and end the game
+        setScores([...scores, ...skippedScores]);
+        setGameActive(false);
+        setGameOver(true);
+    };
+
     return (
         <Container>
             <Row className="my-4"><h2>Country Guessing Game</h2></Row>
@@ -353,12 +391,30 @@ export const Game = () => {
                         <MapChart onSelection={onMapSelection}/>
                     </Card.Body>
                     <Card.Footer className="d-flex justify-content-between align-items-center pb-0">
-                        <h5>
-                            <Badge bg="success">Total Time: {formatTime(totalTime)}s</Badge>
-                        </h5>
-                        <h5 className="d-block d-md-none">
-                            <Badge bg="secondary">Round: {formatTime(roundTime)}s</Badge>
-                        </h5>
+                        <div className="d-flex align-items-center">
+                            <Button
+                                variant="outline-danger"
+                                size="sm"
+                                className="me-2"
+                                onClick={onGameQuit}
+                            >
+                                Quit
+                            </Button>
+                            <Button
+                                variant="outline-secondary"
+                                size="sm"
+                                className="me-2"
+                                onClick={onRoundSkip}
+                            >
+                                Skip
+                            </Button>
+                            <h5 className="mb-0 me-2">
+                                <Badge bg="success">Total: {formatTime(totalTime)}s</Badge>
+                            </h5>
+                            <h5 className="mb-0 d-block d-md-none">
+                                <Badge bg="secondary">Round: {formatTime(roundTime)}s</Badge>
+                            </h5>
+                        </div>
                     </Card.Footer>
                 </Card>
             )}
