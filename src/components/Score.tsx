@@ -30,7 +30,7 @@ interface ScoreProps {
             )
         } else if (s.skipped) {
             return (
-                <span className="text-warning">Skipped <strong>⟳</strong></span>
+                <span className="text-secondary">Skipped <strong>✖</strong></span>
             )
         } else {
             return (
@@ -80,7 +80,7 @@ interface ScoreProps {
 *** Total Time: ${formatTime(totalTime)}s ***
 `;
         scores.forEach(((score, i) => {
-            const status = score.isCorrect ? "✓" : (score.skipped ? "⟳" : "✖");
+            const status = score.isCorrect ? "✓" : "✖";
             const guessText = score.skipped ? "Skipped" : score.guess.name;
             text += `Round ${i + 1}: Answer: ${score.correct.name} Guess: ${guessText} ${status} Time: ${formatTime(score.timeElapsed)}s
 `;

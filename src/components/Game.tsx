@@ -385,36 +385,47 @@ export const Game = () => {
                 </Form>
             )}
             {gameActive && (
-                <Card className="mb-3">
-                    <Card.Header className="d-flex align-items-center justify-content-between pb-0">
-                        <h3>{currentCountry?.name} {currentCountry.flagUnicode}</h3>
-                        <h5 className="d-none d-md-block">
-                            <Badge bg="secondary">Round: {formatTime(roundTime)}s</Badge>
-                        </h5>
-                        <h4 id="roundDisplay" className="me-md-3">Round {round + 1}/{countryCount}</h4>
-                    </Card.Header>
-                    <Card.Body className="p-0">
-                        <MapChart onSelection={onMapSelection}/>
-                    </Card.Body>
-                    <Card.Footer className="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h5>
-                                <Badge bg="success">Total Time: {formatTime(totalTime)}s</Badge>
-                            </h5>
-                            <h5 className="d-block d-md-none">
+                <>
+                    <Card className="mb-3">
+                        <Card.Header className="d-flex align-items-center justify-content-between pb-0">
+                            <h3>{currentCountry?.name} {currentCountry.flagUnicode}</h3>
+                            <h5 className="d-none d-md-block">
                                 <Badge bg="secondary">Round: {formatTime(roundTime)}s</Badge>
                             </h5>
-                        </div>
-                        <div>
-                            <Button variant="warning" className="me-2" onClick={skipRound}>
-                                Skip Round
-                            </Button>
-                            <Button variant="danger" onClick={quitGame}>
-                                Quit Game
-                            </Button>
-                        </div>
-                    </Card.Footer>
-                </Card>
+                            <h4 id="roundDisplay" className="me-md-3">Round {round + 1}/{countryCount}</h4>
+                        </Card.Header>
+                        <Card.Body className="p-0">
+                            <MapChart onSelection={onMapSelection}/>
+                        </Card.Body>
+                        <Card.Footer className="d-flex justify-content-between align-items-center">
+
+                            <h5 className="mb-0">
+                                <Badge bg="success">Total Time: {formatTime(totalTime)}s</Badge>
+                            </h5>
+                            <h5 className="d-block d-md-none mb-0">
+                                <Badge bg="secondary">Round: {formatTime(roundTime)}s</Badge>
+                            </h5>
+
+                            <div className="d-none d-md-block">
+                                <Button variant="secondary" className="me-2" onClick={skipRound}>
+                                    Skip Round
+                                </Button>
+                                <Button variant="danger" onClick={quitGame}>
+                                    Quit Game
+                                </Button>
+                            </div>
+                        </Card.Footer>
+                    </Card>
+                    <div className="d-flex d-md-none justify-content-evenly">
+                        <Button variant="outline-secondary" className="me-2" onClick={skipRound}>
+                            Skip Round
+                        </Button>
+                        <Button variant="outline-danger" onClick={quitGame}>
+                            Quit Game
+                        </Button>
+                    </div>
+                </>
+
             )}
             {!gameActive && gameOver && (
                 <Score scores={scores} onRestart={onGameRestart} totalTime={totalTime}/>
