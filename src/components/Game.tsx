@@ -17,6 +17,7 @@ export interface RoundScore {
     correct: Country;
     isCorrect: boolean;
     timeElapsed: number;
+    skipped: boolean;
 }
 
 interface ContinentSelectionMap {
@@ -218,7 +219,8 @@ export const Game = () => {
                 guess,
                 correct: currentCountry,
                 isCorrect: countryName === currentCountry.name,
-                timeElapsed: roundTime
+                timeElapsed: roundTime,
+                skipped: false
             }]);
 
             const nextRound = round + 1;
@@ -237,6 +239,48 @@ export const Game = () => {
     // Format time to display with one decimal place
     const formatTime = (time: number) => {
         return time.toFixed(1);
+    }
+
+    // New function to handle skipping a round
+    const skipRound = () => {
+        // Mark the current round as skipped and incorrect
+        setScores([...scores, {
+            guess: currentCountry, // Using current country as guess for simplicity
+            correct: currentCountry,
+            isCorrect: false,
+            timeElapsed: roundTime,
+            skipped: true
+        }]);
+
+        const nextRound = round + 1;
+        if (nextRound >= countries.length) {
+            setGameActive(false);
+            setGameOver(true);
+        } else {
+            setCurrentCountry(countries[nextRound]);
+            setRound(nextRound);
+            // Reset round timer for next round
+            setRoundTime(0);
+        }
+    }
+
+    // New function to handle quitting the game
+    const quitGame = () => {
+        // Mark all remaining rounds as skipped and incorrect
+        const remainingScores: RoundScore[] = [];
+        for (let i = round; i < countries.length; i++) {
+            remainingScores.push({
+                guess: countries[i], // Using current country as guess for simplicity
+                correct: countries[i],
+                isCorrect: false,
+                timeElapsed: i === round ? roundTime : 0, // Current round has elapsed time, others 0
+                skipped: true
+            });
+        }
+
+        setScores([...scores, ...remainingScores]);
+        setGameActive(false);
+        setGameOver(true);
     }
 
     return (
@@ -352,13 +396,23 @@ export const Game = () => {
                     <Card.Body className="p-0">
                         <MapChart onSelection={onMapSelection}/>
                     </Card.Body>
-                    <Card.Footer className="d-flex justify-content-between align-items-center pb-0">
-                        <h5>
-                            <Badge bg="success">Total Time: {formatTime(totalTime)}s</Badge>
-                        </h5>
-                        <h5 className="d-block d-md-none">
-                            <Badge bg="secondary">Round: {formatTime(roundTime)}s</Badge>
-                        </h5>
+                    <Card.Footer className="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5>
+                                <Badge bg="success">Total Time: {formatTime(totalTime)}s</Badge>
+                            </h5>
+                            <h5 className="d-block d-md-none">
+                                <Badge bg="secondary">Round: {formatTime(roundTime)}s</Badge>
+                            </h5>
+                        </div>
+                        <div>
+                            <Button variant="warning" className="me-2" onClick={skipRound}>
+                                Skip Round
+                            </Button>
+                            <Button variant="danger" onClick={quitGame}>
+                                Quit Game
+                            </Button>
+                        </div>
                     </Card.Footer>
                 </Card>
             )}
