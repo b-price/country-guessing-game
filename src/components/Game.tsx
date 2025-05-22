@@ -1,5 +1,5 @@
 import {useState, useEffect, useRef} from "react";
-import {Alert, Button, Card, Col, Container, Form, InputGroup, Row} from "react-bootstrap";
+import {Alert, Badge, Button, Card, Col, Container, Form, InputGroup, Row} from "react-bootstrap";
 import MapChart from "./Map.tsx";
 import {Score} from "./Score.tsx";
 import countryData from '../data/countries.json' with { type: 'json' };
@@ -344,21 +344,21 @@ export const Game = () => {
                 <Card className="mb-3">
                     <Card.Header className="d-flex align-items-center justify-content-between pb-0">
                         <h3>{currentCountry?.name} {currentCountry.flagUnicode}</h3>
-                        <div className="d-flex flex-column flex-md-row align-items-md-center">
-                            <h4 id="roundDisplay" className="me-md-3">Round {round + 1}/{countryCount}</h4>
-                            <div className="d-none d-md-block">
-                                <span className="badge bg-info">Round: {formatTime(roundTime)}s</span>
-                            </div>
-                        </div>
+                        <h5 className="d-none d-md-block">
+                            <Badge bg="secondary">Round: {formatTime(roundTime)}s</Badge>
+                        </h5>
+                        <h4 id="roundDisplay" className="me-md-3">Round {round + 1}/{countryCount}</h4>
                     </Card.Header>
                     <Card.Body className="p-0">
                         <MapChart onSelection={onMapSelection}/>
                     </Card.Body>
-                    <Card.Footer className="d-flex justify-content-between align-items-center">
-                        <span className="badge bg-primary">Total Time: {formatTime(totalTime)}s</span>
-                        <div className="d-block d-md-none">
-                            <span className="badge bg-info">Round: {formatTime(roundTime)}s</span>
-                        </div>
+                    <Card.Footer className="d-flex justify-content-between align-items-center pb-0">
+                        <h5>
+                            <Badge bg="success">Total Time: {formatTime(totalTime)}s</Badge>
+                        </h5>
+                        <h5 className="d-block d-md-none">
+                            <Badge bg="secondary">Round: {formatTime(roundTime)}s</Badge>
+                        </h5>
                     </Card.Footer>
                 </Card>
             )}

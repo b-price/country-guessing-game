@@ -1,4 +1,4 @@
-import {Button, Card, Dropdown, Row, Col} from "react-bootstrap";
+import {Button, Card, Dropdown, Row, Col, Badge} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {RoundScore} from "./Game.tsx";
 import * as htmlToImage from 'html-to-image';
@@ -93,7 +93,7 @@ interface ScoreProps {
                 <Card.Header>
                     <Card.Title className="mt-2">
                         <h3>Score: <span className={score > 80 ? 'text-success' : score > 50 ? 'text-warning' : 'text-danger'}>{score.toFixed(2)}%</span></h3>
-                        <h5>Total Time: {formatTime(totalTime)}s</h5>
+                        <h5>Total Time: <Badge bg="success">{formatTime(totalTime)}s</Badge></h5>
                     </Card.Title>
                 </Card.Header>
                 <Card.Body>
@@ -103,7 +103,7 @@ interface ScoreProps {
                                 <p><strong>Round {i + 1}: </strong>{s.correct.flagUnicode} {s.correct.name}: {getScoreIcon(s)}</p>
                             </Col>
                             <Col xs="auto">
-                                <span className="badge bg-info">{formatTime(s.timeElapsed)}s</span>
+                                <Badge bg="secondary">{formatTime(s.timeElapsed)}s</Badge>
                             </Col>
                         </Row>
                     ))}
