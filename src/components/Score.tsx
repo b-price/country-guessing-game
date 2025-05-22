@@ -1,4 +1,4 @@
-import {Button, Card, Dropdown, Row} from "react-bootstrap";
+import {Button, Card, Dropdown, Row, Col} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {RoundScore} from "./Game.tsx";
 import * as htmlToImage from 'html-to-image';
@@ -6,10 +6,10 @@ import * as htmlToImage from 'html-to-image';
 interface ScoreProps {
     scores: RoundScore[];
     onRestart: () => void;
-}
-
-export const Score = ({ scores, onRestart }: ScoreProps) => {
+    totalTime: number;
+}export const Score = ({ scores, onRestart, totalTime }: ScoreProps) => {
     const [score, setScore] = useState(0);
+
     useEffect(() => {
         let correct = 0;
         scores.forEach(s => {
@@ -17,6 +17,11 @@ export const Score = ({ scores, onRestart }: ScoreProps) => {
         });
         setScore((correct / scores.length) * 100);
     }, [scores])
+
+    // Format time to display with one decimal place
+    const formatTime = (time: number) => {
+        return time.toFixed(1);
+    }
 
     const getScoreIcon = (s: RoundScore) => {
         if (s.isCorrect) {
@@ -33,10 +38,12 @@ export const Score = ({ scores, onRestart }: ScoreProps) => {
     const saveJSON = () => {
         const scoreData = {
             totalScore: score.toFixed(2),
+            totalTime: formatTime(totalTime),
             rounds: scores.map(s => ({
                 guess: s.guess.name,
                 correct: s.correct.name,
-                isCorrect: s.isCorrect
+                isCorrect: s.isCorrect,
+                timeElapsed: formatTime(s.timeElapsed)
             }))
         };
         const json = JSON.stringify(scoreData, null, 2);
@@ -65,9 +72,10 @@ export const Score = ({ scores, onRestart }: ScoreProps) => {
         let text =
             `### Country Guessing Game Results ###
 *** Final Score: ${score.toFixed(2)}% ***
+*** Total Time: ${formatTime(totalTime)}s ***
 `;
         scores.forEach(((score, i) => {
-            text += `Round ${i + 1}: Answer: ${score.correct.name} Guess: ${score.guess.name} ${score.isCorrect ? "✓" : "✖"}
+            text += `Round ${i + 1}: Answer: ${score.correct.name} Guess: ${score.guess.name} ${score.isCorrect ? "✓" : "✖"} Time: ${formatTime(score.timeElapsed)}s
 `;
         }));
         const blob = new Blob([text], { type: 'text/plain' });
@@ -85,12 +93,18 @@ export const Score = ({ scores, onRestart }: ScoreProps) => {
                 <Card.Header>
                     <Card.Title className="mt-2">
                         <h3>Score: <span className={score > 80 ? 'text-success' : score > 50 ? 'text-warning' : 'text-danger'}>{score.toFixed(2)}%</span></h3>
+                        <h5>Total Time: {formatTime(totalTime)}s</h5>
                     </Card.Title>
                 </Card.Header>
                 <Card.Body>
                     {scores?.map((s, i) => (
                         <Row key={i}>
-                            <p><strong>Round {i + 1}: </strong>{s.correct.flagUnicode} {s.correct.name}: {getScoreIcon(s)}</p>
+                            <Col>
+                                <p><strong>Round {i + 1}: </strong>{s.correct.flagUnicode} {s.correct.name}: {getScoreIcon(s)}</p>
+                            </Col>
+                            <Col xs="auto">
+                                <span className="badge bg-info">{formatTime(s.timeElapsed)}s</span>
+                            </Col>
                         </Row>
                     ))}
                 </Card.Body>
