@@ -28,6 +28,10 @@ interface ScoreProps {
             return (
                 <span className="text-success">{s.guess.name} {s.guess.flagUnicode} <strong>✓</strong></span>
             )
+        } else if (s.skipped) {
+            return (
+                <span className="text-secondary">Skipped <strong>✖</strong></span>
+            )
         } else {
             return (
                 <span className="text-danger">{s.guess.name} {s.guess.flagUnicode} <strong>✖</strong></span>
@@ -43,6 +47,7 @@ interface ScoreProps {
                 guess: s.guess.name,
                 correct: s.correct.name,
                 isCorrect: s.isCorrect,
+                skipped: s.skipped,
                 timeElapsed: formatTime(s.timeElapsed)
             }))
         };
@@ -75,7 +80,9 @@ interface ScoreProps {
 *** Total Time: ${formatTime(totalTime)}s ***
 `;
         scores.forEach(((score, i) => {
-            text += `Round ${i + 1}: Answer: ${score.correct.name} Guess: ${score.guess.name} ${score.isCorrect ? "✓" : "✖"} Time: ${formatTime(score.timeElapsed)}s
+            const status = score.isCorrect ? "✓" : "✖";
+            const guessText = score.skipped ? "Skipped" : score.guess.name;
+            text += `Round ${i + 1}: Answer: ${score.correct.name} Guess: ${guessText} ${status} Time: ${formatTime(score.timeElapsed)}s
 `;
         }));
         const blob = new Blob([text], { type: 'text/plain' });
