@@ -16,6 +16,7 @@ export interface RoundScore {
     guess: Country;
     correct: Country;
     isCorrect: boolean;
+    timeElapsed: number;
 }
 
 interface ContinentSelectionMap {
@@ -41,6 +42,10 @@ export const Game = () => {
     const [round, setRound] = useState<number>(0);
     const [selectedContinents, setSelectedContinents] = useState<Set<string>>(new Set());
     const [allContinents, setAllContinents] = useState<string[]>([])
+    const [roundStartTime, setRoundStartTime] = useState<number | null>(null);
+    const [gameStartTime, setGameStartTime] = useState<number | null>(null);
+    const [roundTime, setRoundTime] = useState(0);
+    const [totalTime, setTotalTime] = useState(0);
 
     // Get unique continents on component mount
     useEffect(() => {
@@ -85,11 +90,29 @@ export const Game = () => {
         return continentStringMap[continent] || continentStringMap.default;
     }
 
+    // New effect to update timers in real-time while game is active
+    useEffect(() => {
+        let interval: NodeJS.Timeout | null = null;
+        if (gameActive && roundStartTime && gameStartTime) {
+            interval = setInterval(() => {
+                const now = Date.now();
+                setRoundTime((now - roundStartTime) / 1000);
+                setTotalTime((now - gameStartTime) / 1000);
+            }, 100);  // Update every 100ms for smooth decimal display
+        }
+        return () => {
+            if (interval) clearInterval(interval);  // Cleanup to prevent leaks
+        };
+    }, [gameActive, roundStartTime, gameStartTime]);
+
     const onGameStart = () => {
         const success = calculateCountries();
         if (success) {
             setGameActive(true);
             setGameOver(false);
+            const now = Date.now();
+            setGameStartTime(now);  // Start game timer
+            setRoundStartTime(now);  // Start first round timer
         }
     }
 
@@ -160,19 +183,27 @@ export const Game = () => {
         setCountries([]);
         setGameActive(false);
         setGameOver(false);
+        setRoundStartTime(null);  // Reset timers
+        setGameStartTime(null);
+        setRoundTime(0);
+        setTotalTime(0);
     }
 
     const onMapSelection = (countryName: string) => {
         const guess = countryData.find(s => s.name === countryName);
-        if (guess) {
-            setScores([...scores, { guess, correct: currentCountry, isCorrect: countryName === currentCountry.name}]);
+        if (guess && roundStartTime) {
+            const timeElapsed = (Date.now() - roundStartTime) / 1000;  // Calculate round time
+            setScores([...scores, { guess, correct: currentCountry, isCorrect: countryName === currentCountry.name, timeElapsed }]);
             const nextRound = round + 1;
             if (nextRound >= countries.length) {
                 setGameActive(false);
                 setGameOver(true);
+                setRoundStartTime(null);  // Stop round timer
             } else {
                 setCurrentCountry(countries[nextRound]);
                 setRound(nextRound);
+                setRoundStartTime(Date.now());  // Reset round timer for next round
+                setRoundTime(0);
             }
         }
     }
@@ -282,15 +313,32 @@ export const Game = () => {
                 <Card className="mb-3">
                     <Card.Header className="d-flex align-items-center justify-content-between pb-0">
                         <h3>{currentCountry?.name} {currentCountry.flagUnicode}</h3>
-                        <h4 id="roundDisplay">Round {round + 1}/{countryCount}</h4>
+                        <div>
+                            <h4 id="roundDisplay" className="d-inline me-3">Round {round + 1}/{countryCount}</h4>
+                            {/* Round timer: Visible on desktop in header */}
+                            <span id="roundTimer" className="d-none d-md-inline">
+                                Round Time: {roundTime.toFixed(1)}s
+                            </span>
+                        </div>
                     </Card.Header>
                     <Card.Body className="p-0">
                         <MapChart onSelection={onMapSelection}/>
                     </Card.Body>
+                    {/* New Footer for timers: Shows game timer on desktop, both on mobile */}
+                    <Card.Footer className="d-flex justify-content-between">
+                        {/* Round timer: Visible only on mobile in footer */}
+                        <span id="roundTimerMobile" className="d-md-none">
+                            Round Time: {roundTime.toFixed(1)}s
+                        </span>
+                        {/* Game timer: Always visible in footer */}
+                        <span id="gameTimer">
+                            Total Time: {totalTime.toFixed(1)}s
+                        </span>
+                    </Card.Footer>
                 </Card>
             )}
             {!gameActive && gameOver && (
-                <Score scores={scores} onRestart={onGameRestart}/>
+                <Score scores={scores} onRestart={onGameRestart} totalTime={totalTime} />
             )}
             <Alert className="mt-3" variant="danger" show={error}>{errorMessage}</Alert>
         </Container>

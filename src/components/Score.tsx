@@ -6,9 +6,10 @@ import * as htmlToImage from 'html-to-image';
 interface ScoreProps {
     scores: RoundScore[];
     onRestart: () => void;
+    totalTime: number;
 }
 
-export const Score = ({ scores, onRestart }: ScoreProps) => {
+export const Score = ({ scores, onRestart, totalTime }: ScoreProps) => {
     const [score, setScore] = useState(0);
     useEffect(() => {
         let correct = 0;
@@ -33,10 +34,12 @@ export const Score = ({ scores, onRestart }: ScoreProps) => {
     const saveJSON = () => {
         const scoreData = {
             totalScore: score.toFixed(2),
+            totalTime: totalTime.toFixed(1),
             rounds: scores.map(s => ({
                 guess: s.guess.name,
                 correct: s.correct.name,
-                isCorrect: s.isCorrect
+                isCorrect: s.isCorrect,
+                timeElapsed: s.timeElapsed.toFixed(1)
             }))
         };
         const json = JSON.stringify(scoreData, null, 2);
@@ -65,11 +68,12 @@ export const Score = ({ scores, onRestart }: ScoreProps) => {
         let text =
             `### Country Guessing Game Results ###
 *** Final Score: ${score.toFixed(2)}% ***
+*** Total Time: ${totalTime.toFixed(1)}s ***  // New: Include total time
 `;
-        scores.forEach(((score, i) => {
-            text += `Round ${i + 1}: Answer: ${score.correct.name} Guess: ${score.guess.name} ${score.isCorrect ? "✓" : "✖"}
+        scores.forEach((score, i) => {
+            text += `Round ${i + 1}: Answer: ${score.correct.name} Guess: ${score.guess.name} ${score.isCorrect ? "✓" : "✖"} Time: ${score.timeElapsed.toFixed(1)}s
 `;
-        }));
+        });
         const blob = new Blob([text], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
@@ -84,13 +88,20 @@ export const Score = ({ scores, onRestart }: ScoreProps) => {
             <div id="imageArea">
                 <Card.Header>
                     <Card.Title className="mt-2">
-                        <h3>Score: <span className={score > 80 ? 'text-success' : score > 50 ? 'text-warning' : 'text-danger'}>{score.toFixed(2)}%</span></h3>
+                        <h3>Score: <span
+                            className={score > 80 ? 'text-success' : score > 50 ? 'text-warning' : 'text-danger'}>{score.toFixed(2)}%</span>
+                        </h3>
+                        <h4>Total Time: {totalTime.toFixed(1)}s</h4>  {/* New: Display total game time */}
                     </Card.Title>
                 </Card.Header>
                 <Card.Body>
                     {scores?.map((s, i) => (
                         <Row key={i}>
-                            <p><strong>Round {i + 1}: </strong>{s.correct.flagUnicode} {s.correct.name}: {getScoreIcon(s)}</p>
+                            <p>
+                                <strong>Round {i + 1}: </strong>{s.correct.flagUnicode} {s.correct.name}: {getScoreIcon(s)}
+                                <span
+                                    className="ms-2">Time: {s.timeElapsed.toFixed(1)}s</span> {/* New: Display round time */}
+                            </p>
                         </Row>
                     ))}
                 </Card.Body>
