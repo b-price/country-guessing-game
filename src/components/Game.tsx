@@ -18,6 +18,8 @@ export interface RoundScore {
     isCorrect: boolean;
     timeElapsed: number;
     skipped: boolean;
+    expired: boolean; // Add this
+    timeLimit?: number; // Optional: store the time limit for this round
 }
 
 interface ContinentSelectionMap {
@@ -45,6 +47,10 @@ export const Game = () => {
     const [allContinents, setAllContinents] = useState<string[]>([])
     const [roundTime, setRoundTime] = useState<number>(0);
     const [totalTime, setTotalTime] = useState<number>(0);
+    const [isTimedMode, setIsTimedMode] = useState<boolean>(false);
+    const [roundTimeRemaining, setRoundTimeRemaining] = useState<number>(0);
+    const [totalTimeRemaining, setTotalTimeRemaining] = useState<number>(0);
+    const [countryTimeLimits, setCountryTimeLimits] = useState<number[]>([]);
     const roundTimerRef = useRef<number | null>(null);
     const totalTimerRef = useRef<number | null>(null);
 
@@ -56,16 +62,43 @@ export const Game = () => {
         setSelectedContinents(new Set(formattedContinents));
     }, []);
 
-    // Start timers when game becomes active
+    // Modified timer effect for countdown in timed mode
     useEffect(() => {
-        if (gameActive) {
-            // Start round timer
+        if (gameActive && isTimedMode) {
+            // Round timer (countdown)
+            if (roundTimeRemaining > 0) {
+                roundTimerRef.current = window.setInterval(() => {
+                    setRoundTimeRemaining(prev => {
+                        if (prev <= 0.1) {
+                            // Round time expired
+                            handleRoundTimeExpired();
+                            return 0;
+                        }
+                        return prev - 0.1;
+                    });
+                }, 100);
+            }
+
+            // Total game timer (countdown)
+            if (totalTimeRemaining > 0 && totalTimerRef.current === null) {
+                totalTimerRef.current = window.setInterval(() => {
+                    setTotalTimeRemaining(prev => {
+                        if (prev <= 0.1) {
+                            // Game time expired
+                            handleGameTimeExpired();
+                            return 0;
+                        }
+                        return prev - 0.1;
+                    });
+                }, 100);
+            }
+        } else if (gameActive && !isTimedMode) {
+            // Original count-up timers for normal mode
             setRoundTime(0);
             roundTimerRef.current = window.setInterval(() => {
                 setRoundTime(prev => prev + 0.1);
             }, 100);
 
-            // Start total timer if it's not already running
             if (totalTimerRef.current === null) {
                 setTotalTime(0);
                 totalTimerRef.current = window.setInterval(() => {
@@ -73,25 +106,33 @@ export const Game = () => {
                 }, 100);
             }
         } else {
-            // Clear round timer when game is not active
+            // Clear timers when game is not active
             if (roundTimerRef.current) {
                 clearInterval(roundTimerRef.current);
                 roundTimerRef.current = null;
             }
-
-            // Clear total timer when game is over
-            if (gameOver && totalTimerRef.current) {
+            if (totalTimerRef.current) {
                 clearInterval(totalTimerRef.current);
                 totalTimerRef.current = null;
             }
         }
 
-        // Cleanup timers on component unmount
         return () => {
             if (roundTimerRef.current) clearInterval(roundTimerRef.current);
             if (totalTimerRef.current) clearInterval(totalTimerRef.current);
         };
-    }, [gameActive, gameOver]);
+    }, [gameActive, isTimedMode, roundTimeRemaining, totalTimeRemaining]);
+
+    // Calculate time limit based on population rank
+    const calculateRoundTimeLimit = (popRank: number, totalCountries: number): number => {
+        // Linear interpolation between 10s (most populous) and 45s (least populous)
+        if (totalCountries <= 1) return 45;
+        const minTime = 10;
+        const maxTime = 45;
+        // Normalize popRank to 0-1 scale (0 = most populous, 1 = least populous)
+        const normalizedRank = (popRank - 1) / (totalCountries - 1);
+        return Math.round(minTime + (maxTime - minTime) * normalizedRank);
+    };
 
     function getRandomUniqueIntegers(x: number, min: number, max: number) {
         if (min > max || x <= 0) return [];
@@ -128,15 +169,38 @@ export const Game = () => {
         return continentStringMap[continent] || continentStringMap.default;
     }
 
-    const onGameStart = () => {
+    // Modified onGameStart to handle both normal and timed modes
+    const onGameStart = (timed: boolean = false) => {
         const success = calculateCountries();
         if (success) {
+            setIsTimedMode(timed);
             setGameActive(true);
             setGameOver(false);
-            setTotalTime(0);
-            setRoundTime(0);
+
+            if (timed) {
+                // Calculate time limits for each country
+                const timeLimits = countries.map(country =>
+                    calculateRoundTimeLimit(country.popRank, countryData.length)
+                );
+                setCountryTimeLimits(timeLimits);
+
+                // Set initial round time
+                setRoundTimeRemaining(timeLimits[0]);
+
+                // Calculate total game time (90% of sum of round times)
+                const totalGameTime = timeLimits.reduce((sum, time) => sum + time, 0) * 0.9;
+                setTotalTimeRemaining(totalGameTime);
+            } else {
+                // Reset for normal mode
+                setRoundTimeRemaining(0);
+                setTotalTimeRemaining(0);
+                setCountryTimeLimits([]);
+                setTotalTime(0);
+                setRoundTime(0);
+            }
         }
-    }
+    };
+
 
     // Function to toggle continent selection
     const toggleContinent = (continent: string) => {
@@ -211,16 +275,68 @@ export const Game = () => {
         setRoundTime(0);
     }
 
+    // Handle round time expiration
+    const handleRoundTimeExpired = () => {
+        // Mark current round as expired
+        setScores([...scores, {
+            guess: currentCountry,
+            correct: currentCountry,
+            isCorrect: false,
+            timeElapsed: countryTimeLimits[round],
+            skipped: false,
+            expired: true,
+            timeLimit: countryTimeLimits[round]
+        }]);
+
+        // Move to next round or end game
+        const nextRound = round + 1;
+        if (nextRound >= countries.length) {
+            setGameActive(false);
+            setGameOver(true);
+        } else {
+            setCurrentCountry(countries[nextRound]);
+            setRound(nextRound);
+            setRoundTimeRemaining(countryTimeLimits[nextRound]);
+        }
+    };
+
+    // Handle game time expiration
+    const handleGameTimeExpired = () => {
+        // Mark current and all remaining rounds as expired
+        const remainingScores: RoundScore[] = [];
+        for (let i = round; i < countries.length; i++) {
+            remainingScores.push({
+                guess: countries[i],
+                correct: countries[i],
+                isCorrect: false,
+                timeElapsed: i === round ? countryTimeLimits[i] - roundTimeRemaining : countryTimeLimits[i],
+                skipped: false,
+                expired: true,
+                timeLimit: countryTimeLimits[i]
+            });
+        }
+
+        setScores([...scores, ...remainingScores]);
+        setGameActive(false);
+        setGameOver(true);
+    };
+
+    // Modified onMapSelection to handle timed mode
     const onMapSelection = (countryName: string) => {
         const guess = countryData.find(s => s.name === countryName);
         if (guess) {
-            // Include the round time in the score
+            const timeUsed = isTimedMode
+                ? countryTimeLimits[round] - roundTimeRemaining
+                : roundTime;
+
             setScores([...scores, {
                 guess,
                 correct: currentCountry,
                 isCorrect: countryName === currentCountry.name,
-                timeElapsed: roundTime,
-                skipped: false
+                timeElapsed: timeUsed,
+                skipped: false,
+                expired: false,
+                timeLimit: isTimedMode ? countryTimeLimits[round] : undefined
             }]);
 
             const nextRound = round + 1;
@@ -230,11 +346,15 @@ export const Game = () => {
             } else {
                 setCurrentCountry(countries[nextRound]);
                 setRound(nextRound);
-                // Reset round timer for next round
-                setRoundTime(0);
+                if (isTimedMode) {
+                    setRoundTimeRemaining(countryTimeLimits[nextRound]);
+                } else {
+                    setRoundTime(0);
+                }
             }
         }
-    }
+    };
+
 
     // Format time to display with one decimal place
     const formatTime = (time: number) => {
@@ -242,14 +362,20 @@ export const Game = () => {
     }
 
     // New function to handle skipping a round
+    // Modified skipRound to handle timed mode
     const skipRound = () => {
-        // Mark the current round as skipped and incorrect
+        const timeUsed = isTimedMode
+            ? countryTimeLimits[round] - roundTimeRemaining
+            : roundTime;
+
         setScores([...scores, {
-            guess: currentCountry, // Using current country as guess for simplicity
+            guess: currentCountry,
             correct: currentCountry,
             isCorrect: false,
-            timeElapsed: roundTime,
-            skipped: true
+            timeElapsed: timeUsed,
+            skipped: true,
+            expired: false,
+            timeLimit: isTimedMode ? countryTimeLimits[round] : undefined
         }]);
 
         const nextRound = round + 1;
@@ -259,29 +385,37 @@ export const Game = () => {
         } else {
             setCurrentCountry(countries[nextRound]);
             setRound(nextRound);
-            // Reset round timer for next round
-            setRoundTime(0);
+            if (isTimedMode) {
+                setRoundTimeRemaining(countryTimeLimits[nextRound]);
+            } else {
+                setRoundTime(0);
+            }
         }
-    }
+    };
 
-    // New function to handle quitting the game
+    // Modified quitGame to handle timed mode
     const quitGame = () => {
-        // Mark all remaining rounds as skipped and incorrect
         const remainingScores: RoundScore[] = [];
         for (let i = round; i < countries.length; i++) {
+            const timeUsed = i === round
+                ? (isTimedMode ? countryTimeLimits[i] - roundTimeRemaining : roundTime)
+                : 0;
+
             remainingScores.push({
-                guess: countries[i], // Using current country as guess for simplicity
+                guess: countries[i],
                 correct: countries[i],
                 isCorrect: false,
-                timeElapsed: i === round ? roundTime : 0, // Current round has elapsed time, others 0
-                skipped: true
+                timeElapsed: timeUsed,
+                skipped: true,
+                expired: false,
+                timeLimit: isTimedMode ? countryTimeLimits[i] : undefined
             });
         }
 
         setScores([...scores, ...remainingScores]);
         setGameActive(false);
         setGameOver(true);
-    }
+    };
 
     return (
         <Container>
@@ -381,7 +515,14 @@ export const Game = () => {
                             </Card>
                         </Col>
                     </Row>
-                    <Button variant="primary" size="lg" onClick={onGameStart}>Start Game</Button>
+                    <div className="d-flex justify-content-between">
+                        <Button variant="primary" size="lg" onClick={() => onGameStart(false)}>
+                            Start Game
+                        </Button>
+                        <Button variant="info" size="lg" onClick={() => onGameStart(true)}>
+                            Timed Mode
+                        </Button>
+                    </div>
                 </Form>
             )}
             {gameActive && (
@@ -390,7 +531,11 @@ export const Game = () => {
                         <Card.Header className="d-flex align-items-center justify-content-between pb-0">
                             <h3>{currentCountry?.name} {currentCountry.flagUnicode}</h3>
                             <h5 className="d-none d-md-block">
-                                <Badge bg="secondary">Round: {formatTime(roundTime)}s</Badge>
+                                <Badge bg="secondary">
+                                    Round: {isTimedMode
+                                    ? `${formatTime(roundTimeRemaining)}s remaining`
+                                    : `${formatTime(roundTime)}s`}
+                                </Badge>
                             </h5>
                             <h4 id="roundDisplay" className="me-md-3">Round {round + 1}/{countryCount}</h4>
                         </Card.Header>
@@ -398,12 +543,19 @@ export const Game = () => {
                             <MapChart onSelection={onMapSelection}/>
                         </Card.Body>
                         <Card.Footer className="d-flex justify-content-between align-items-center">
-
                             <h5 className="mb-0">
-                                <Badge bg="success">Total Time: {formatTime(totalTime)}s</Badge>
+                                <Badge bg="success">
+                                    {isTimedMode
+                                        ? `Time Left: ${formatTime(totalTimeRemaining)}s`
+                                        : `Total Time: ${formatTime(totalTime)}s`}
+                                </Badge>
                             </h5>
                             <h5 className="d-block d-md-none mb-0">
-                                <Badge bg="secondary">Round: {formatTime(roundTime)}s</Badge>
+                                <Badge bg="secondary">
+                                    Round: {isTimedMode
+                                    ? `${formatTime(roundTimeRemaining)}s left`
+                                    : `${formatTime(roundTime)}s`}
+                                </Badge>
                             </h5>
 
                             <div className="d-none d-md-block">

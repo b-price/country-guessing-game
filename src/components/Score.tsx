@@ -27,17 +27,30 @@ interface ScoreProps {
         if (s.isCorrect) {
             return (
                 <span className="text-success">{s.guess.name} {s.guess.flagUnicode} <strong>✓</strong></span>
-            )
+            );
+        } else if (s.expired) {
+            return (
+                <span className="text-warning">Time expired <strong>⏱</strong></span>
+            );
         } else if (s.skipped) {
             return (
                 <span className="text-secondary">Skipped <strong>✖</strong></span>
-            )
+            );
         } else {
             return (
                 <span className="text-danger">{s.guess.name} {s.guess.flagUnicode} <strong>✖</strong></span>
-            )
+            );
         }
-    }
+    };
+
+    // Modified to show time limit if available
+    const getTimeDisplay = (s: RoundScore) => {
+        const timeText = formatTime(s.timeElapsed);
+        if (s.timeLimit) {
+            return `${timeText}s / ${formatTime(s.timeLimit)}s`;
+        }
+        return `${timeText}s`;
+    };
 
     const saveJSON = () => {
         const scoreData = {
@@ -99,7 +112,9 @@ interface ScoreProps {
             <div id="imageArea">
                 <Card.Header>
                     <Card.Title className="mt-2">
-                        <h3>Score: <span className={score > 80 ? 'text-success' : score > 50 ? 'text-warning' : 'text-danger'}>{score.toFixed(2)}%</span></h3>
+                        <h3>Score: <span
+                            className={score > 80 ? 'text-success' : score > 50 ? 'text-warning' : 'text-danger'}>{score.toFixed(2)}%</span>
+                        </h3>
                         <h5>Total Time: <Badge bg="success">{formatTime(totalTime)}s</Badge></h5>
                     </Card.Title>
                 </Card.Header>
@@ -107,10 +122,12 @@ interface ScoreProps {
                     {scores?.map((s, i) => (
                         <Row key={i}>
                             <Col>
-                                <p><strong>Round {i + 1}: </strong>{s.correct.flagUnicode} {s.correct.name}: {getScoreIcon(s)}</p>
+                                <p>
+                                    <strong>Round {i + 1}: </strong>{s.correct.flagUnicode} {s.correct.name}: {getScoreIcon(s)}
+                                </p>
                             </Col>
                             <Col xs="auto">
-                                <Badge bg="secondary">{formatTime(s.timeElapsed)}s</Badge>
+                                <Badge bg="secondary">{getTimeDisplay(s)}</Badge>
                             </Col>
                         </Row>
                     ))}
