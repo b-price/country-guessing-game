@@ -80,7 +80,7 @@ export const Game = () => {
             }
 
             // Total game timer (countdown)
-            if (totalTimeRemaining > 0 && totalTimerRef.current === null) {
+            if (totalTimeRemaining > 0) {
                 totalTimerRef.current = window.setInterval(() => {
                     setTotalTimeRemaining(prev => {
                         if (prev <= 0.1) {
@@ -172,16 +172,18 @@ export const Game = () => {
     // Modified onGameStart to handle both normal and timed modes
     const onGameStart = (timed: boolean = false) => {
         const success = calculateCountries();
-        if (success) {
+        if (success && success.success) {
             setIsTimedMode(timed);
             setGameActive(true);
             setGameOver(false);
-
             if (timed) {
+
+
                 // Calculate time limits for each country
-                const timeLimits = countries.map(country =>
+                const timeLimits = success.countries.map(country =>
                     calculateRoundTimeLimit(country.popRank, countryData.length)
                 );
+
                 setCountryTimeLimits(timeLimits);
 
                 // Set initial round time
@@ -256,7 +258,7 @@ export const Game = () => {
             setCurrentCountry(newCountries[0]);
             setError(false);
             setErrorMessage('');
-            return true;
+            return {success: true, countries: newCountries};
         }
         setError(true);
         setErrorMessage('Error: Filters too narrow for amount of countries.')
