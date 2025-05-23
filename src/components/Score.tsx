@@ -7,7 +7,11 @@ interface ScoreProps {
     scores: RoundScore[];
     onRestart: () => void;
     totalTime: number;
-}export const Score = ({ scores, onRestart, totalTime }: ScoreProps) => {
+    timedMode?: boolean;
+    gameTimeLimit?: number;
+}
+
+export const Score = ({ scores, onRestart, totalTime, timedMode = false, gameTimeLimit = 0 }: ScoreProps) => {
     const [score, setScore] = useState(0);
 
     useEffect(() => {
@@ -28,6 +32,10 @@ interface ScoreProps {
             return (
                 <span className="text-success">{s.guess.name} {s.guess.flagUnicode} <strong>✓</strong></span>
             )
+        } else if (s.expired) {
+            return (
+                <span className="text-secondary">Time Expired <strong>✖</strong></span>
+            )
         } else if (s.skipped) {
             return (
                 <span className="text-secondary">Skipped <strong>✖</strong></span>
@@ -43,11 +51,14 @@ interface ScoreProps {
         const scoreData = {
             totalScore: score.toFixed(2),
             totalTime: formatTime(totalTime),
+            timedMode: timedMode,
+            gameTimeLimit: timedMode ? formatTime(gameTimeLimit) : null,
             rounds: scores.map(s => ({
                 guess: s.guess.name,
                 correct: s.correct.name,
                 isCorrect: s.isCorrect,
                 skipped: s.skipped,
+                expired: s.expired,
                 timeElapsed: formatTime(s.timeElapsed)
             }))
         };
@@ -78,10 +89,18 @@ interface ScoreProps {
             `### Country Guessing Game Results ###
 *** Final Score: ${score.toFixed(2)}% ***
 *** Total Time: ${formatTime(totalTime)}s ***
+${timedMode ? `*** Timed Mode Active (Limit: ${formatTime(gameTimeLimit)}s) ***` : ''}
 `;
         scores.forEach(((score, i) => {
             const status = score.isCorrect ? "✓" : "✖";
-            const guessText = score.skipped ? "Skipped" : score.guess.name;
+            let guessText = score.guess.name;
+
+            if (score.expired) {
+                guessText = "Time Expired";
+            } else if (score.skipped) {
+                guessText = "Skipped";
+            }
+
             text += `Round ${i + 1}: Answer: ${score.correct.name} Guess: ${guessText} ${status} Time: ${formatTime(score.timeElapsed)}s
 `;
         }));
@@ -100,7 +119,20 @@ interface ScoreProps {
                 <Card.Header>
                     <Card.Title className="mt-2">
                         <h3>Score: <span className={score > 80 ? 'text-success' : score > 50 ? 'text-warning' : 'text-danger'}>{score.toFixed(2)}%</span></h3>
-                        <h5>Total Time: <Badge bg="success">{formatTime(totalTime)}s</Badge></h5>
+                        <h5>
+                            {timedMode ? (
+                                <>Game Mode: <Badge bg="danger">Timed</Badge></>
+                            ) : (
+                                <>Game Mode: <Badge bg="primary">Standard</Badge></>
+                            )}
+                        </h5>
+                        <h5>
+                            Total Time: {timedMode ? (
+                                <Badge bg="success">{formatTime(totalTime)}s / {formatTime(gameTimeLimit)}s</Badge>
+                            ) : (
+                            <Badge bg="success">{formatTime(totalTime)}s</Badge>
+                        )}
+                        </h5>
                     </Card.Title>
                 </Card.Header>
                 <Card.Body>
@@ -110,7 +142,11 @@ interface ScoreProps {
                                 <p><strong>Round {i + 1}: </strong>{s.correct.flagUnicode} {s.correct.name}: {getScoreIcon(s)}</p>
                             </Col>
                             <Col xs="auto">
-                                <Badge bg="secondary">{formatTime(s.timeElapsed)}s</Badge>
+                                {timedMode ? (
+                                    <Badge bg="secondary">{formatTime(s.timeElapsed)}s / {formatTime(s.timeAllowed)}s</Badge>
+                                ) : (
+                                    <Badge bg="secondary">{formatTime(s.timeElapsed)}s</Badge>
+                                )}
                             </Col>
                         </Row>
                     ))}
