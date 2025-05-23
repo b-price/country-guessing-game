@@ -34,7 +34,7 @@ export const Score = ({ scores, onRestart, totalTime, timedMode = false, gameTim
             )
         } else if (s.expired) {
             return (
-                <span className="text-warning">Time Expired <strong>⏱</strong></span>
+                <span className="text-secondary">Time Expired <strong>✖</strong></span>
             )
         } else if (s.skipped) {
             return (
@@ -89,14 +89,13 @@ export const Score = ({ scores, onRestart, totalTime, timedMode = false, gameTim
             `### Country Guessing Game Results ###
 *** Final Score: ${score.toFixed(2)}% ***
 *** Total Time: ${formatTime(totalTime)}s ***
-${timedMode ? `*** Timed Mode: Yes (Limit: ${formatTime(gameTimeLimit)}s) ***` : ''}
+${timedMode ? `*** Timed Mode Active (Limit: ${formatTime(gameTimeLimit)}s) ***` : ''}
 `;
         scores.forEach(((score, i) => {
-            let status = score.isCorrect ? "✓" : "✖";
+            const status = score.isCorrect ? "✓" : "✖";
             let guessText = score.guess.name;
 
             if (score.expired) {
-                status = "⏱";
                 guessText = "Time Expired";
             } else if (score.skipped) {
                 guessText = "Skipped";
@@ -122,12 +121,18 @@ ${timedMode ? `*** Timed Mode: Yes (Limit: ${formatTime(gameTimeLimit)}s) ***` :
                         <h3>Score: <span className={score > 80 ? 'text-success' : score > 50 ? 'text-warning' : 'text-danger'}>{score.toFixed(2)}%</span></h3>
                         <h5>
                             {timedMode ? (
-                                <>Game Mode: <Badge bg="warning">Timed ({formatTime(gameTimeLimit)}s)</Badge></>
+                                <>Game Mode: <Badge bg="danger">Timed</Badge></>
                             ) : (
                                 <>Game Mode: <Badge bg="primary">Standard</Badge></>
                             )}
                         </h5>
-                        <h5>Total Time: <Badge bg="success">{formatTime(totalTime)}s</Badge></h5>
+                        <h5>
+                            Total Time: {timedMode ? (
+                                <Badge bg="success">{formatTime(totalTime)}s / {formatTime(gameTimeLimit)}s</Badge>
+                            ) : (
+                            <Badge bg="success">{formatTime(totalTime)}s</Badge>
+                        )}
+                        </h5>
                     </Card.Title>
                 </Card.Header>
                 <Card.Body>
@@ -137,7 +142,11 @@ ${timedMode ? `*** Timed Mode: Yes (Limit: ${formatTime(gameTimeLimit)}s) ***` :
                                 <p><strong>Round {i + 1}: </strong>{s.correct.flagUnicode} {s.correct.name}: {getScoreIcon(s)}</p>
                             </Col>
                             <Col xs="auto">
-                                <Badge bg="secondary">{formatTime(s.timeElapsed)}s</Badge>
+                                {timedMode ? (
+                                    <Badge bg="secondary">{formatTime(s.timeElapsed)}s / {formatTime(s.timeAllowed)}s</Badge>
+                                ) : (
+                                    <Badge bg="secondary">{formatTime(s.timeElapsed)}s</Badge>
+                                )}
                             </Col>
                         </Row>
                     ))}

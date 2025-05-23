@@ -17,6 +17,7 @@ export interface RoundScore {
     correct: Country;
     isCorrect: boolean;
     timeElapsed: number;
+    timeAllowed: number;
     skipped: boolean;
     expired: boolean;
 }
@@ -47,7 +48,6 @@ export const Game = () => {
     const [roundTime, setRoundTime] = useState<number>(0);
     const [totalTime, setTotalTime] = useState<number>(0);
     const [timedMode, setTimedMode] = useState<boolean>(false);
-    const [roundTimeLimit, setRoundTimeLimit] = useState<number>(0);
     const [gameTimeLimit, setGameTimeLimit] = useState<number>(0);
     const [roundTimeRemaining, setRoundTimeRemaining] = useState<number>(0);
     const [gameTimeRemaining, setGameTimeRemaining] = useState<number>(0);
@@ -83,17 +83,17 @@ export const Game = () => {
                 // Start game timer if it's not already running
                 if (totalTimerRef.current === null) {
                     setGameTimeRemaining(gameTimeLimit);
-                    totalTimerRef.current = window.setInterval(() => {
-                        setGameTimeRemaining(prev => {
-                            const newTime = Math.max(0, prev - 0.1);
-                            if (newTime <= 0) {
-                                // Game time's up
-                                handleExpiredGame();
-                            }
-                            return newTime;
-                        });
-                    }, 100);
                 }
+                totalTimerRef.current = window.setInterval(() => {
+                    setGameTimeRemaining(prev => {
+                        const newTime = Math.max(0, prev - 0.1);
+                        if (newTime <= 0) {
+                            // Game time's up
+                            handleExpiredGame();
+                        }
+                        return newTime;
+                    });
+                }, 100);
             } else {
                 // Original mode with counting up timers
                 setRoundTime(0);
@@ -180,7 +180,8 @@ export const Game = () => {
             isCorrect: false,
             timeElapsed: timedMode ? calculateRoundTimeLimit(currentCountry.popRank) : roundTime,
             skipped: false,
-            expired: true
+            expired: true,
+            timeAllowed: timedMode ? calculateRoundTimeLimit(currentCountry.popRank) : 0
         }]);
 
         const nextRound = round + 1;
@@ -211,7 +212,8 @@ export const Game = () => {
             isCorrect: false,
             timeElapsed: calculateRoundTimeLimit(currentCountry.popRank) - roundTimeRemaining,
             skipped: false,
-            expired: true
+            expired: true,
+            timeAllowed: timedMode ? calculateRoundTimeLimit(currentCountry.popRank) : 0
         });
 
         // All subsequent rounds
@@ -222,7 +224,8 @@ export const Game = () => {
                 isCorrect: false,
                 timeElapsed: 0,
                 skipped: false,
-                expired: true
+                expired: true,
+                timeAllowed: timedMode ? calculateRoundTimeLimit(currentCountry.popRank) : 0
             });
         }
 
@@ -248,7 +251,7 @@ export const Game = () => {
 
     const onGameStart = (timed: boolean = false) => {
         const success = calculateCountries();
-        if (success) {
+        if (success && success.success) {
             setTimedMode(timed);
             setGameActive(true);
             setGameOver(false);
@@ -259,10 +262,9 @@ export const Game = () => {
 
             if (timed) {
                 // Calculate time limits for timed mode
-                const roundLimit = calculateRoundTimeLimit(countries[0].popRank);
-                const gameLimit = calculateGameTimeLimit(countries);
+                const roundLimit = calculateRoundTimeLimit(success.countries[0].popRank);
+                const gameLimit = calculateGameTimeLimit(success.countries);
 
-                setRoundTimeLimit(roundLimit);
                 setGameTimeLimit(gameLimit);
                 setRoundTimeRemaining(roundLimit);
                 setGameTimeRemaining(gameLimit);
@@ -325,7 +327,7 @@ export const Game = () => {
             setCurrentCountry(newCountries[0]);
             setError(false);
             setErrorMessage('');
-            return true;
+            return {success: true, countries: newCountries};
         }
         setError(true);
         setErrorMessage('Error: Filters too narrow for amount of countries.')
@@ -356,7 +358,8 @@ export const Game = () => {
                     (calculateRoundTimeLimit(currentCountry.popRank) - roundTimeRemaining) :
                     roundTime,
                 skipped: false,
-                expired: false
+                expired: false,
+                timeAllowed: timedMode ? calculateRoundTimeLimit(currentCountry.popRank) : 0
             }]);
 
             const nextRound = round + 1;
@@ -392,7 +395,8 @@ export const Game = () => {
                 (calculateRoundTimeLimit(currentCountry.popRank) - roundTimeRemaining) :
                 roundTime,
             skipped: true,
-            expired: false
+            expired: false,
+            timeAllowed: timedMode ? calculateRoundTimeLimit(currentCountry.popRank) : 0
         }]);
 
         const nextRound = round + 1;
@@ -426,7 +430,8 @@ export const Game = () => {
                         roundTime) :
                     0, // Current round has elapsed time, others 0
                 skipped: true,
-                expired: false
+                expired: false,
+                timeAllowed: timedMode ? calculateRoundTimeLimit(countries[i].popRank) : 0
             });
         }
 
@@ -538,8 +543,8 @@ export const Game = () => {
                             <Button variant="primary" size="lg" className="me-3" onClick={() => onGameStart(false)}>
                                 Start Game
                             </Button>
-                            <Button variant="warning" size="lg" onClick={() => onGameStart(true)}>
-                                Start Timed Mode
+                            <Button variant="danger" size="lg" onClick={() => onGameStart(true)}>
+                                Start Timed Game
                             </Button>
                         </Col>
                     </Row>
